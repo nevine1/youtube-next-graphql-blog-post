@@ -1,7 +1,7 @@
-import { GraphQL, gql  } from "graphql-react";
+import { request, gql , GraphQLClient} from "graphql-request"
 
-export const PostsQuery = gql`
-    query MyQuery {
+export const getPostsQuery = gql`
+    query PostsQuery {
         postsConnection {
             edges {
             node {
