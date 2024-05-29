@@ -1,9 +1,10 @@
 "use client"
 import Image from "next/image";
 import { useState, useEffect } from 'react'
+import { Categories, PostCard, PostWidget} from '../components/page'
 
 const posts = [
-  { name: 'Web developnet', excerpt: 'web develpemnet for beginners'},
+  { name: 'Web development', excerpt: 'web development for beginners'},
   { name: 'Web designer', excerpt: 'full course for web designer'},
 
 ]
@@ -17,17 +18,19 @@ export default function Home() {
           
        {
         posts.map((post, index) =>(
-          <div key={post.index}>
-            <h2>{post.name}</h2>
-            <h3>{post.excerpt}</h3>
-          </div>
+          
+            <PostCard post={post}  key={post.index} />
+          
         ))
        }
+       
        </div> 
       </div>
       <div className="lg:col-span-4 col-span-1">
        <div className="lg:sticky relative top-8">
-
+        <Categories/>
+        <PostCard/>
+        <PostWidget/>
        </div>
       </div>
     </div>
