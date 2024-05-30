@@ -13,20 +13,16 @@ export default function Home() {
 
   const getAllPosts = async () => {
     setIsLoading(true);
-  
     try {
       const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
-  
       // Make the request to your GraphQL endpoint
       const response = await request(graphqlAPI, getPostsQuery);
-  
       // Check for errors in the response
       if (response.errors) {
         setError(response.errors[0].message);
         console.error("GraphQL errors:", response.errors);
         return; // Exit early if there are errors
       }
-  
       // Extract posts data using destructuring
       const { postsConnection: { edges } } = response; // Destructure data
       const posts = edges.map((edge) => edge.node); // Map over edges to get posts
@@ -40,51 +36,7 @@ export default function Home() {
     }
   };
   console.log(posts)
- /*  const getAllPosts = async () => {
-    setIsLoading(true);
-  
-    try {
-      const requestBody = {
-        query: getPostsQuery,
-      };
-      const options = {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(requestBody),
-      };
-  
-      const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
-  
-      const response = await fetch(graphqlAPI, options);
-      console.log("response status:", response.status);
-  
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
-      }
-  
-      const data = await response.json();
-  
-      // Check for undefined data:
-      if (!data || !data.postsConnection) {
-        setError("An error occurred while fetching posts. (Data might be undefined)"); // More specific error message
-        console.error("Data is undefined:", data);
-      } else if (data?.errors) {
-        setError(data.errors[0].message);
-        console.error("GraphQL errors:", data.errors);
-      } else {
-        // Access data using map (assuming edges exist now):
-        const fetchedPosts = data.postsConnection.edges.map((edge) => edge.node);
-        setPosts(fetchedPosts);
-      }
-    } catch (err) {
-      setError("An error occurred while fetching posts.");
-      console.error("Error fetching posts:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-   */
-
+ 
   useEffect(() => {
     getAllPosts(); // Fetch posts on component mount
   }, []);
@@ -102,10 +54,7 @@ export default function Home() {
             <div className="lg:sticky relative top-8">
               {
                 posts.map(post =>(
-                  <div>
-                    <h2>{post.slug}</h2>
-                    <h2>{post.categories.slug}</h2>
-                  </div>
+                  <PostCard post ={post} />
                 )) 
               }
              
