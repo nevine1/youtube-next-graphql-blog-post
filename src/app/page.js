@@ -48,15 +48,15 @@ export default function Home() {
       {posts.length > 0 && ( // Render posts only if fetched successfully
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8 col-span-1">
-            <h2>Postssssssssssssssssssss</h2>
-          </div>
-          <div className="lg:col-span-4 col-span-1">
-            <div className="lg:sticky relative top-8">
-              {
+          {
                 posts.map((post) =>(
                   <PostCard post={post} />
                 ))
               }
+          </div>
+          <div className="lg:col-span-4 col-span-1">
+            <div className="lg:sticky relative top-8">
+              
               <PostWidget/>
               <Categories/>
             </div>

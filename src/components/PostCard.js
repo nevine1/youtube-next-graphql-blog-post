@@ -24,19 +24,24 @@ const PostCard = ({post}) => {
             />
             <p className="inline align-middle  text-gray-700 text-lg ml-2">{post.author.name}</p>
           </div>
-          <div className="font-small text-gray-500 ">
+          <div className="font-small text-gray-500 text-center">
             <span className="">{moment(post.createdAt).format("MMM DD, YYYY")}</span>
           </div>
-          <div className="text-gray-700 p-2 text-center text-lg font-normal px-4 lg:px-5mb-8">
+        </div>
+
+          <div className="text-gray-700 p-2 text-center text-medium font-normal px-4 lg:px-5mb-8">
             <p>{post.expert}</p>
           </div>
-          <div className="text-center">
-            <Link href={`/post/${post.slug}`}>
-              <span>Continue Reading</span>
-            </Link>
+        
+        <div className="text-center">
+          <Link href={`/post/${post.slug}`}>
+            <span className="transition duration-400 transform hover:-translate-y-1
+                inline-block bg-pink-500 text-white text-small rounded-full px-5 py-2"
+            >Continue Reading</span>
+          </Link>
 
-          </div>
         </div>
+        
       </div>
              
     
