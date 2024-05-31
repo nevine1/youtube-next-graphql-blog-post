@@ -25,6 +25,7 @@ export const getPostsQuery = gql`
                 name
                 slug
                 }
+                expert
             }
             }
         }

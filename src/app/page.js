@@ -42,22 +42,23 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container px-10 mx-auto mb-8">
+    <div className="container mx-auto px-10 mb-8">
       {isLoading && <p>Loading posts...</p>} {/* Display loading state */}
       {error && <p className="error">Error: {error}</p>} {/* Display error message */}
       {posts.length > 0 && ( // Render posts only if fetched successfully
-        <div className="bg-gray-300 grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="m-3 lg:col-span-8 col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="lg:col-span-8 col-span-1">
             <h2>Postssssssssssssssssssss</h2>
           </div>
           <div className="lg:col-span-4 col-span-1">
             <div className="lg:sticky relative top-8">
               {
-                posts.map(post =>(
-                  <PostCard post ={post} />
-                )) 
+                posts.map((post) =>(
+                  <PostCard post={post} />
+                ))
               }
-             
+              <PostWidget/>
+              <Categories/>
             </div>
           </div>
         </div>
