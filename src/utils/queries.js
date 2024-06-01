@@ -34,19 +34,17 @@ export const getPostsQuery = gql`
 
 `
 
-export cont postDetails = gql`
-    query GetPostDetails {
-        post(where: {id: "clwpm09pe1tbk07sstcwfzfze", slug: "react-testing"}) {
-        expert
-        featuredImage {
-        url
-        createdAt
-        }
-        slug
-        content {
-        markdown
-        }
-    }
-    }
+export const recentPosts = gql`
+    query RecentPosts {
+            posts(orderBy: createdAt_ASC, last: 3) {
+                id
+                slug
+                expert
+                featuredImage {
+                url
+                }
+                createdAt
+            }
+            }
 
-`;
+    `;
