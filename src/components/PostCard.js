@@ -3,6 +3,7 @@ import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import moment from 'moment/moment';
+import { MdOutlineDateRange } from "react-icons/md";
 const PostCard = ({post}) => {
   console.log('here is the psot page ');
   console.log(post);
@@ -24,8 +25,11 @@ const PostCard = ({post}) => {
             />
             <p className="inline align-middle  text-gray-700 text-lg ml-2">{post.author.name}</p>
           </div>
-          <div className="font-small text-gray-500 text-center">
-            <span className="">{moment(post.createdAt).format("MMM DD, YYYY")}</span>
+          <div className="flex items-center justify-center font-small text-gray-500">
+            <span className="flex items-center justify-center">
+              <MdOutlineDateRange className="pr-1 text-[25px]"/>
+              {moment(post.createdAt).format("MMM DD, YYYY")}
+            </span>
           </div>
         </div>
 

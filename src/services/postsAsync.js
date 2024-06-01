@@ -37,3 +37,7 @@ export const getAllPosts = async () =>{
     const results = await request(graphqlAPI, GetPostsQuery);
     return results.postsConnection.edge; 
 }
+
+export const getRecentPosts = async () =>{
+    console.log('recent posts ')
+}
