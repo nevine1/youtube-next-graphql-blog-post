@@ -39,5 +39,5 @@ export const getAllPosts = async () =>{
 }
 
 export const getRecentPosts = async () =>{
-    console.log('recent posts ')
+    
 }

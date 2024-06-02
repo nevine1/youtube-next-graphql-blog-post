@@ -33,7 +33,7 @@ export const getPostsQuery = gql`
 
 
 `
-
+//this query to get the last 3 posts created 
 export const recentPosts = gql`
     query RecentPosts {
             posts(orderBy: createdAt_ASC, last: 3) {

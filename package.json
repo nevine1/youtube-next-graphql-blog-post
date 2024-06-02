@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.5",
     "graphql": "^16.8.1",
     "graphql-react": "^20.0.0",
     "graphql-request": "^7.0.1",
