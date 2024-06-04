@@ -47,3 +47,21 @@ export const recentPosts = gql`
             }
 
     `;
+
+export const getPostDetails = gql`
+    query PostDetails($slug: String) {
+        post(where: {slug: $slug}) {
+            expert
+            title
+            slug
+            featuredImage {
+            url
+            }
+            featuredPost
+            content {
+            markdown
+            }
+            createdAt
+        }
+        }
+`;
