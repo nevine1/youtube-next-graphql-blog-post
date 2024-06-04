@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import moment from 'moment'; // Assuming you're using moment.js for date formatting
 import Link from 'next/link';
 import { recentPosts } from '../utils/queries'; // Assuming this imports your GraphQL query
-import PostCardDetails from "./PostCardDetails"
+import RecentPostCard from "./RecentPostCard"
 const PostWidget = () => {
 
-  const [posts, setPosts] = useState([]);
+  const [recPosts, setRecPosts] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT
@@ -29,7 +29,7 @@ const getRecentPosts = async () =>{
         if (data?.errors) {
           setError(data.errors[0].message);
         } else {
-          setPosts(data.data.posts)
+          setRecPosts(data.data.posts)
         }
 
     }catch(err){
@@ -41,7 +41,7 @@ const getRecentPosts = async () =>{
 }
 
   console.log('posts at teh wdi')
-console.log(posts)
+console.log(recPosts)
   useEffect(() => {
     getRecentPosts();
   }, []); // Empty dependency array ensures data is fetched only once
@@ -55,8 +55,8 @@ console.log(posts)
         <p>{error}</p>
       ) : (
         // Conditional rendering within useEffect to ensure fetched data
-        posts.map((post) =>(
-          <PostCardDetails post={post} key={post.id}/>
+        recPosts.map((post) =>(
+          <RecentPostCard post={post} key={post.id}/>
 
         ))
       )}

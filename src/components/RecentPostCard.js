@@ -5,7 +5,7 @@ import Image from 'next/image';
 import moment from 'moment/moment';
 import { MdOutlineDateRange } from "react-icons/md";
 
-const PostCardDetails = ({post}) => {
+const RecentPostCard = ({post}) => {
 
   return (
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 overflow-hidden p-2 mb-2 border-b-2 border-gray-100">
@@ -40,4 +40,4 @@ const PostCardDetails = ({post}) => {
   )
 }
 
-export default PostCardDetails
+export default RecentPostCard
