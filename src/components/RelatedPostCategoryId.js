@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react';
-import moment from 'moment'; // Assuming you're using moment.js for date formatting
-import Link from 'next/link';
-import { recentPosts, getCategories } from '../utils/queries'; // Assuming this imports your GraphQL query
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import RecentPosts from './RecentPosts'
-import { RelatedPostCategoryId } from './page';
-const PostWidget = () => {
+import { gql } from 'graphql-request';
+import { getRelatedPostCategoryId} from '../utils/queries'
 
-  const [recPosts, setRecPosts] = useState([]);
+const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
+
+
+
+const RelatedPostCategoryId = ({ categoryId }) => {
+  const [relPosts, setRelPosts] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT
 
-const getRecentPosts = async () =>{
-  setIsLoading(true)
+  // Fetch related posts based on category ID
+  const getRelatedPosts = async (categoryId) => {
+    setIsLoading(true)
     try{
         const requestBody = {
           query: recentPosts 
@@ -21,7 +22,8 @@ const getRecentPosts = async () =>{
         const options = {
           method: 'POST',
           headers:{'content-type': 'application/json'},
-          body: JSON.stringify(requestBody)
+          body: JSON.stringify(requestBody), 
+          variables: {}
         };
 
         const response =await fetch(process.env.NEXT_PUBLIC_BLOG_ENDPOINT, options);
@@ -40,30 +42,28 @@ const getRecentPosts = async () =>{
     }finally{
         setIsLoading(false)
     }
-}
-
+  };
 
   useEffect(() => {
-    getRecentPosts();
-  }, []); // Empty dependency array ensures data is fetched only once
-
+    if (categoryId) {
+      getRelatedPosts(categoryId);
+    }
+  }, [categoryId]);
+console.log(categoryId);
   return (
     <div className="bg-white rounded-lg mb-8 p-5">
-      <h2 className="font-semibold border-b text-xl mb-8">Recent Posts</h2>
+      <h2 className="font-semibold border-b text-xl mb-8">Related Posts</h2>
       {isLoading ? (
         <p>Loading posts...</p>
       ) : error ? (
         <p>{error}</p>
       ) : (
-        // Conditional rendering within useEffect to ensure fetched data
-        recPosts.map((post) =>(
-          <RecentPosts post={post} key={post.id}/>
-
+        relPosts.map((post) => (
+          <h2>{post.slug}</h2>
         ))
-      )} 
-      
+      )}
     </div>
   );
 };
 
-export default PostWidget;
+export default RelatedPostCategoryId;

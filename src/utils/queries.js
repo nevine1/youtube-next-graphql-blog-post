@@ -69,11 +69,26 @@ export const getPostDetails = gql`
 export const getCategories = gql`
 
     query Categories {
-    categories {
-        id
-        name
-        slug
-    }
+        categories {
+            id
+            name
+            slug
+        }
     }
 
+`;
+
+export const getRelatedPostCategoryId = gql`
+  query RelatedPosts($categoryId: ID!) {
+    posts(where: { categories_some: { id: $categoryId } }) {
+      id
+      title
+      slug
+      expert
+      featuredImage {
+        url
+      }
+      createdAt
+    }
+  }
 `;

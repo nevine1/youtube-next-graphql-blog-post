@@ -4,8 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import moment from 'moment/moment';
 import { MdOutlineDateRange } from "react-icons/md";
+import RelatedPostCategoryId from './RelatedPostCategoryId';
 
-const RecentPostCard = ({post}) => {
+const RecentPosts= ({post}) => {
 
   return (
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 overflow-hidden p-2 mb-2 border-b-2 border-gray-100">
@@ -29,15 +30,12 @@ const RecentPostCard = ({post}) => {
                 {moment(post.createdAt).format("MMM DD, YYYY")}
                 </span>
           </div>
-        </div>
-        
-
-          
+        </div>  
         <hr className="color-red"/>
-      </div>
-             
+        <RelatedPostCategoryId/>
+      </div>            
     
   )
 }
 
-export default RecentPostCard
+export default RecentPosts

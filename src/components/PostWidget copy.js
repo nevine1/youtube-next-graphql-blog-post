@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment'; // Assuming you're using moment.js for date formatting
 import Link from 'next/link';
 import { recentPosts } from '../utils/queries'; // Assuming this imports your GraphQL query
-import RecentPostCard from "./RecentPostCard"
+import RecentPostCard from "./RecentPostCategoryId"
 const PostWidget = () => {
 
   const [recPosts, setRecPosts] = useState([]);
