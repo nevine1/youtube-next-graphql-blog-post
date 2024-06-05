@@ -65,3 +65,15 @@ export const getPostDetails = gql`
         }
         }
 `;
+
+export const getCategories = gql`
+
+    query Categories {
+    categories {
+        id
+        name
+        slug
+    }
+    }
+
+`;

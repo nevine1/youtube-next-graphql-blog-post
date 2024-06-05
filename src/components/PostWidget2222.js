@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
 import moment from 'moment'; // Assuming you're using moment.js for date formatting
 import Link from 'next/link';
-import { recentPosts, getCategories } from '../utils/queries'; // Assuming this imports your GraphQL query
+import { recentPosts } from '../utils/queries'; // Assuming this imports your GraphQL query
 import RecentPostCard from "./RecentPostCard"
 const PostWidget = () => {
 
   const [recPosts, setRecPosts] = useState([]);
-  const [relPosts, setRelPosts] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT
  
-const allCategories = async () =>{
-  const response = await axi
-}
 const getRecentPosts = async () =>{
   setIsLoading(true)
     try{
@@ -34,35 +30,6 @@ const getRecentPosts = async () =>{
           setError(data.errors[0].message);
         } else {
           setRecPosts(data.data.posts)
-        }
-
-    }catch(err){
-        setError('An error occurred while fetching courses.');
-       
-    }finally{
-        setIsLoading(false)
-    }
-}
-const getRelatedPosts = async () =>{
-  setIsLoading(true)
-    try{
-        const requestBody = {
-          query: recentPosts 
-        };
-        const options = {
-          method: 'POST',
-          headers:{'content-type': 'application/json'},
-          body: JSON.stringify(requestBody)
-        };
-
-        const response =await fetch(process.env.NEXT_PUBLIC_BLOG_ENDPOINT, options);
-        console.log('response status:', response.status);
-        const data = await response.json();
-
-        if (data?.errors) {
-          setError(data.errors[0].message);
-        } else {
-          setRelPosts(data.data.posts)
         }
 
     }catch(err){

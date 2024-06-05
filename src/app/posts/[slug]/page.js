@@ -41,7 +41,7 @@ console.log(post)
         post && (
           <div>
             <h2>{post.title}</h2>
-     <p>{post.content.markdown}</p>
+              <p>{post.content.markdown}</p>
             <h2>{post.slug}</h2>
           </div>
         )
