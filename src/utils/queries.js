@@ -62,7 +62,11 @@ export const getPostDetails = gql`
             markdown
             }
             createdAt
-        }
+            categories {
+                id
+                slug
+                }
+            }
         }
 `;
 
@@ -79,16 +83,24 @@ export const getCategories = gql`
 `;
 
 export const getRelatedPostCategoryId = gql`
-  query RelatedPosts($categoryId: ID!) {
-    posts(where: { categories_some: { id: $categoryId } }) {
-      id
-      title
-      slug
-      expert
-      featuredImage {
-        url
-      }
-      createdAt
-    }
-  }
+    query RelatedPosts($slug: String!) {
+        posts(where: {categories_some: {slug: $slug}}) {
+            id
+            slug
+            title
+            createdAt
+            expert
+            content {
+            markdown
+            }
+            featuredImage {
+            url
+            }
+            categories {
+            id
+            name
+            slug
+            }
+        }
+        }
 `;

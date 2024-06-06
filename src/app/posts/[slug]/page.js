@@ -5,6 +5,7 @@ import { getPostDetails } from '../../../utils/queries';
 import { Categories, PostCard, PostWidget, RelatedPostCategoryId } from "../../../components/page";
 import moment from 'moment';
 import { MdOutlineDateRange } from "react-icons/md";
+import { BiSolidCategory } from "react-icons/bi";
 const page = () => {
   const { slug } = useParams();
   const [post, setPost] = useState(null); // Initial state with null to avoid rendering issues
@@ -50,7 +51,6 @@ const page = () => {
 
   // Console log for debugging purposes (remove for production)
   console.log('Post details:', post);
-
   return (
     <div className="container mx-auto px-10 mb-8">
       {isLoading && <p>Loading post...</p>} {/* Display loading state */}
@@ -60,38 +60,43 @@ const page = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8 col-span-1 rounded bg-white">
             <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
-
-            </div>
-
-            <h2>{post.title}</h2>
-            <h2>{post.expert}</h2>
-            <div className="block lg:flex items-center justify-center mb-8 w-full">
-          
+              <h1 className="transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold">
+              {post.title}
+              </h1>
+              <div className="relative overflow-hidden shadow-md pb-80 mb-6">
+                <img src={post.featuredImage.url} alt={post.slug} 
+                  className="object-top absolute h-90 w-full object-cover  
+                  shadow-lg rounded-lg lg:rounded-lg" />
+              </div>
+           
+              <div className="text-gray-700 p-2 text-center text-medium font-normal px-4 lg:px-5mb-8">
+                <p>{post.content.markdown}</p>
+              </div>
               <div className="flex items-center justify-center font-small text-gray-500">
                 <span className="flex items-center justify-center">
                   <MdOutlineDateRange className="pr-1 text-[25px]"/>
                   {moment(post.createdAt).format("MMM DD, YYYY")}
                 </span>
               </div>
+
+              <div className="flex items-center justify-center font-small text-gray-500">
+                <span className="flex items-center justify-center">
+                  <BiSolidCategory className="pr-1 text-[25px]"/>
+                  {post.categories[0].slug}
+                </span>
+              </div>
             </div>
-
-          <div className="text-gray-700 p-2 text-center text-medium font-normal px-4 lg:px-5mb-8">
-            <p>{post.expert}</p>
           </div>
-
-           
-          </div>
+          
           <div className="lg:col-span-4 col-span-1 bg-white rounded">
             <div className="lg:sticky relative top-8">
-              <PostWidget />
-        
-              {/* <RelatedPostCategoryId/> */}
+              <RelatedPostCategoryId categoryId ={post.categories[0].slug}/>
             </div>
           </div>
         </div>
       )}
 
-      {!post && !isLoading && !error && <p>Post not found.</p>} {/* Display message if no post found */}
+      {!post && !isLoading && !error && <p>Posts not found.</p>} {/* Display message if no post found */}
     </div>
   );
 };
