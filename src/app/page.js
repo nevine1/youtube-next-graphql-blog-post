@@ -59,7 +59,7 @@ export default function Home() {
               
               <PostWidget/>
               <Categories/>
-              <RelatedPostCategoryId/>
+              
             </div>
           </div>
         </div>
