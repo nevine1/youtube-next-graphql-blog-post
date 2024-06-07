@@ -2,10 +2,14 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { getPostDetails } from '../../../utils/queries';
-import { Categories, PostCard, PostWidget, RelatedPostCategoryId } from "../../../components/page";
+import { Categories, PostCard, PostWidget, RelatedPostCategoryId, 
+          Author, CommentForm, Comments
+        } from "../../../components/page";
 import moment from 'moment';
 import { MdOutlineDateRange } from "react-icons/md";
 import { BiSolidCategory } from "react-icons/bi";
+
+
 const page = () => {
   const { slug } = useParams();
   const [post, setPost] = useState(null); // Initial state with null to avoid rendering issues
@@ -84,14 +88,25 @@ const page = () => {
                   <BiSolidCategory className="pr-1 text-[25px]"/>
                   {post.categories[0].slug}
                 </span>
+                
               </div>
+              <p className="text-lg">{post.author.name}</p>
+              <Author/>
+              <CommentForm/>
+              <Comments/>
             </div>
           </div>
           
-          <div className="lg:col-span-4 col-span-1 bg-white rounded">
-            <div className="lg:sticky relative top-8">
+          <div className="lg:col-span-4 col-span-1  lg:sticky relative">
+           
+            <div className=" bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-3 mb-3 text-[20px]">
               <RelatedPostCategoryId categoryId ={post.categories[0].slug}/>
             </div>
+
+            <div className="bg-white p-3 pb-2 rounded-lg">
+              <Categories/>
+            </div>
+
           </div>
         </div>
       )}

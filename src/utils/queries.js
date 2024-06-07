@@ -66,6 +66,15 @@ export const getPostDetails = gql`
                 id
                 slug
                 }
+
+            author {
+                id
+                name
+                bio
+                photo {
+                    url
+                }
+                }
             }
         }
 `;

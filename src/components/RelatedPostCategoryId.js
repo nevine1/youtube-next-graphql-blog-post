@@ -6,8 +6,6 @@ import { getRelatedPostCategoryId} from '../utils/queries'
 import { useParams } from 'next/navigation'
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 
-
-
 const RelatedPostCategoryId = ({categoryId}) => {
   console.log(categoryId)
   console.log('category id is ' );
