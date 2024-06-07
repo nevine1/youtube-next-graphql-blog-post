@@ -3,13 +3,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { getPostDetails } from '../../../utils/queries';
 import { Categories, PostCard, PostWidget, RelatedPostCategoryId, 
-          Author, CommentForm, Comments
+          Author, CommentForm, Comments, SinglePostDetails
         } from "../../../components/page";
-import moment from 'moment';
-import { MdOutlineDateRange } from "react-icons/md";
-import { BiSolidCategory } from "react-icons/bi";
-
-
 const page = () => {
   const { slug } = useParams();
   const [post, setPost] = useState(null); // Initial state with null to avoid rendering issues
@@ -64,7 +59,8 @@ const page = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8 col-span-1 rounded bg-white">
             <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
-              <h1 className="transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold">
+              
+              {/* <h1 className="transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold">
               {post.title}
               </h1>
               <div className="relative overflow-hidden shadow-md pb-80 mb-6">
@@ -89,7 +85,8 @@ const page = () => {
                   {post.categories[0].slug}
                 </span>
                 
-              </div>
+              </div> */}
+              <SinglePostDetails post={post} />
               <p className="text-lg">{post.author.name}</p>
               <Author/>
               <CommentForm/>
