@@ -57,8 +57,8 @@ const page = () => {
 
       {post && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-8 col-span-1 rounded bg-white">
-            <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
+          <div className="lg:col-span-8 col-span-1 rounded">
+            <div className=" rounded-lg p-0 lg:p-8 pb-12 mb-8">
               
               {/* <h1 className="transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold">
               {post.title}
