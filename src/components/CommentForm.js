@@ -27,6 +27,7 @@ const CommentForm = () => {
 
    //if you need to store the name and email 
    if(storeData){
+    
     localStorage.setItem('name', name);//if y like to store data, save name and email
     localStorage.setItem('email', email);
    }else{
