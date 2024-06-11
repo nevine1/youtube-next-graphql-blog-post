@@ -38,6 +38,11 @@ export const getAllPosts = async () =>{
     return results.postsConnection.edge; 
 }
 
-export const getRecentPosts = async () =>{
-    
+export const submitComment = async (obj) =>{
+    const result = await fetch('', { 
+        method: 'POST',
+        body: JSON.stringify(obj);
+    });
+
+    return result.json();
 }
