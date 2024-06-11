@@ -1,6 +1,6 @@
 import { comment } from 'postcss';
 import {useState, useEffect, useRef} from 'react'
-
+import { submitComment } from '../services/postsAsync'
 const CommentForm = () => {
   const [error, setError] = useState(false);
   const [localStorage, setLocalStorage] = useState(null)
@@ -10,6 +10,11 @@ const CommentForm = () => {
   const emailEl = useRef();
   const storeDataEl = useRef();
 
+
+  useEffect (() =>{
+    nameEl.current.value = window.localStorage.getItem('name');
+    emailEl.current.value = window.localStorage.getItem('email');
+  })
   const handleSubmit = () =>{
    setError(false);
 
@@ -23,7 +28,7 @@ const CommentForm = () => {
     return ; // to stop submission 
    }
 
-   const commentSub = { comment, name, email, slug};
+   const commentObj = { comment, name, email, slug};
 
    //if you need to store the name and email 
    if(storeData){
@@ -34,6 +39,14 @@ const CommentForm = () => {
     localStorage.removeItem('name', name);
     localStorage.removeItem('email', email);
    }
+
+   submitComment(commentObj).
+   then((req) =>{
+    setShowSuccessMessage(true);
+    setTimeout(() =>{
+      setShowSuccessMessage(fa);
+    }, 3000)
+   })
   }
   return (
     <div className="bg-white m-4 rounded-lg p-6 shadow-md pb-8">
