@@ -41,7 +41,7 @@ export const getAllPosts = async () =>{
 export const submitComment = async (obj) =>{
     const result = await fetch('', { 
         method: 'POST',
-        body: JSON.stringify(obj);
+        body: JSON.stringify(obj),
     });
 
     return result.json();
