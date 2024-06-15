@@ -3,17 +3,19 @@ import {useState, useEffect, useRef} from 'react'
 import { submitComment } from '../services/postsAsync'
 const CommentForm = () => {
   const [error, setError] = useState(false);
-  const[isLoading, setIsLoading ] = useState(false)
-  const [localStorage, setLocalStorage] = useState(null)
+  const [isLoading, setIsLoading ] = useState(false)
+  //const [localStorage, setLocalStorage] = useState(null)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState(null);
   const [formData, setFormData] = useState({
     name: '', email: '', comment: ''
   })
+  const [isChecked, setIsChecked] = useState(false);
 
  
  const handleChange = (event) => {
   setFormData({ ...formData, [event.target.name]: event.target.value });
+  console.log(formData)
 };
 
 
@@ -43,16 +45,31 @@ const CommentForm = () => {
     window.localStorage.removeItem('email', email);
    }
 
-   submitComment(commentObj).
+   /* submitComment(commentObj).
    then((req) =>{
     setShowSuccessMessage(true);
     setTimeout(() =>{
       setShowSuccessMessage(fa);
     }, 3000)
-   })
+   }) */
   }
 
-  const handleSubmit = ()=>{
+  const handleCheckboxChange = (event) => {
+    // Get the checked status from the event target
+    const checked = event.target.checked;
+    // Update the state
+    setIsChecked(checked);
+
+    // Log a message if the checkbox is checked
+    if (checked) {
+      window.localStorage.setItem('name', name);
+      window.localStorage.setItem('email', email);
+    }else{
+      window.localStorage.remove('name', name);
+      window.localStorage.remove('email', email);
+    }
+  };
+  const handleSubmit3 = ()=>{
     event.preventDefault();
     setIsLoading(true);
     setSubmissionStatus(null); // Clear previous status
@@ -73,19 +90,31 @@ const CommentForm = () => {
    })
 
   }
+
+  const handleSubmit = () =>{
+    event.preventDefault();
+    setIsLoading(true);
+    setSubmissionStatus(null); // Clear previous status
+    if(!comment || !name || !email ){
+      setError('These fields are required')
+      return ; // to stop submission 
+     }
+
+     const commentObj = { comment, name, email, slug};
+
+    submitComment(commentObj).
+    then((req) =>{
+    setShowSuccessMessage(true);
+    setTimeout(() =>{
+      setShowSuccessMessage(fa);
+    }, 3000)
+   })
+    
+  }
   return (
     <div className="bg-white m-4 rounded-lg p-6 shadow-md pb-8">
       <h2 className="text-lg font-semibold pb-4 border-b">Comments</h2>
-      <div className="grid grid-cols-1 gap-4 mb-4">
-
-        <textarea value={formData.comment}
-          className="p-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-             placeholder="comments"
-             name="comment"
-             onChange={handleChange}
-          />
-          
-      </div>
+      
       <div className="grid grid-cols-1 mb-4 lg:grid-cols-2 gap-4">
           <input value={formData.name}
             type="text"
@@ -102,21 +131,31 @@ const CommentForm = () => {
             className="p-2 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
           />
       </div>
-     {/*  <div className="grid grid-cols-1 mb-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 mb-4">
+
+        <textarea value={formData.comment}
+          className="p-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
+             placeholder="comments"
+             name="comment"
+             onChange={handleChange}
+          />
+      </div>
+      <div className="grid grid-cols-1 mb-4 gap-4">
         <div>
           <input 
             name="storeData"
             type="checkbox"
             id="storeData"
             value="true"
-            onChange={}
+            checked={isChecked}
+            onChange={handleCheckboxChange}
           />
           <label className="text-gray-500 cursor-pointer ml-2" 
             htmlFor="storeData">
             Save my name and email for next time I add comment
           </label>
         </div>
-      </div> */}
+      </div>
       {/* {error && <p className="text-xs text-red-400">All fields are required</p>} */}
       <div className="flex justify-center mt-4">
           <button type="button"
