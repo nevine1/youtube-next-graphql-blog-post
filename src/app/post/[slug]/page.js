@@ -89,7 +89,7 @@ const page = () => {
               <SinglePostDetails post={post} />
               <p className="text-lg">{post.author.name}</p>
               <Author author={post.author}/>
-              <CommentForm/>
+              <CommentForm slug={post.slug}/>
               <Comments/>
             </div>
           </div>

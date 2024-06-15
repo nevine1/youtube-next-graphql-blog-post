@@ -1,148 +1,123 @@
-import { comment } from 'postcss';
-import {useState, useEffect, useRef} from 'react'
-import { submitComment } from '../services/postsAsync'
-const CommentForm = () => {
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading ] = useState(false)
-  //const [localStorage, setLocalStorage] = useState(null)
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '', email: '', comment: ''
-  })
+import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+const CommentForm = ({ slug }) => {
+  const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
   const [isChecked, setIsChecked] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [error, setError] = useState('');
+  const uniqueId = uuidv4(); // Generate unique identifier
 
- 
- const handleChange = (event) => {
-  setFormData({ ...formData, [event.target.name]: event.target.value });
-  console.log(formData)
-};
-
-
-  /* useEffect(() =>{
-    nameEl.current.value = window.localStorage.getItem('name');
-    emailEl.current.value = window.localStorage.getItem('email');
-  }, []) */
-  const handleSubmit2 = () =>{
-   setError(false);
-
-   const { value: comment } = commentEl.current;
-   const { value: name } = nameEl.current;
-   const { value: email } = emailEl.current;
-   const { checked: storeData } = storeDataEl.current;
-
-  
-
-   const commentObj = { comment, name, email, slug};
-
-  
-   if(storeData){
-    
-    window.localStorage.setItem('name', name);//if y like to store data, save name and email
-    window.localStorage.setItem('email', email);
-   }else{
-    window.localStorage.removeItem('name', name);
-    window.localStorage.removeItem('email', email);
-   }
-
-   /* submitComment(commentObj).
-   then((req) =>{
-    setShowSuccessMessage(true);
-    setTimeout(() =>{
-      setShowSuccessMessage(fa);
-    }, 3000)
-   }) */
-  }
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem('formData'));
+    if (storedData) {
+      setFormData(storedData);
+      setIsChecked(true);
+    }
+  }, []);
 
   const handleCheckboxChange = (event) => {
-    // Get the checked status from the event target
-    const checked = event.target.checked;
-    // Update the state
-    setIsChecked(checked);
-
-    // Log a message if the checkbox is checked
-    if (checked) {
-      window.localStorage.setItem('name', name);
-      window.localStorage.setItem('email', email);
-    }else{
-      window.localStorage.remove('name', name);
-      window.localStorage.remove('email', email);
+    setIsChecked(event.target.checked);
+    if (!event.target.checked) {
+      localStorage.removeItem('formData');
     }
   };
-  const handleSubmit3 = ()=>{
-    event.preventDefault();
-    setIsLoading(true);
-    setSubmissionStatus(null); // Clear previous status
 
-    if(!comment || !name || !email ){
-      setError('These fields are required')
-      return ; // to stop submission 
-     }
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-     const commentObj = { comment, name, email, slug};
+  const handleSubmit = async () => {
+    const { name, email, comment } = formData;
 
-     submitComment(commentObj).
-   then((req) =>{
-    setShowSuccessMessage(true);
-    setTimeout(() =>{
-      setShowSuccessMessage(fa);
-    }, 3000)
-   })
+    if (!name || !email || !comment) {
+      setError('All fields are required');
+      return;
+    }
 
-  }
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_BLOG_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreateComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
+              createComment(data: {
+                name: $name,
+                email: $email,
+                comment: $comment,
+                post: {
+                  connect: { slug: $slug }
+                }
+              }) {
+                id
+              }
+            }
+          `,
+          variables: {
+            name,
+            email,
+            comment,
+            slug:slug, // Use dynamically passed slug
+          },
+        }),
+      });
 
-  const handleSubmit = () =>{
-    event.preventDefault();
-    setIsLoading(true);
-    setSubmissionStatus(null); // Clear previous status
-    if(!comment || !name || !email ){
-      setError('These fields are required')
-      return ; // to stop submission 
-     }
+      const data = await response.json();
+      if (data.errors) {
+        throw new Error(data.errors[0].message);
+      }
 
-     const commentObj = { comment, name, email, slug};
+      localStorage.removeItem('formData'); // Clear formData after successful submission
 
-    submitComment(commentObj).
-    then((req) =>{
-    setShowSuccessMessage(true);
-    setTimeout(() =>{
-      setShowSuccessMessage(fa);
-    }, 3000)
-   })
-    
-  }
+      setShowSuccessMessage(true);
+      setFormData({ name: '', email: '', comment: '' });
+      setIsChecked(false);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
+      setError('');
+    } catch (error) {
+      console.error('Error submitting comment:', error);
+      setError('Failed to submit comment');
+    }
+  };
+
   return (
     <div className="bg-white m-4 rounded-lg p-6 shadow-md pb-8">
       <h2 className="text-lg font-semibold pb-4 border-b">Comments</h2>
       
       <div className="grid grid-cols-1 mb-4 lg:grid-cols-2 gap-4">
-          <input value={formData.name}
-            type="text"
-            placeholder='Name'
-            name="name"
-            onChange={handleChange}
-            className="p-2 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-          />
-          <input value={formData.email}
-            type="email"
-            placeholder='Email'
-            name="email"
-            onChange={handleChange}
-            className="p-2 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-          />
+        <input
+          value={formData.name}
+          type="text"
+          placeholder="Name"
+          name="name"
+          onChange={handleChange}
+          className="p-2 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
+        />
+        <input
+          value={formData.email}
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={handleChange}
+          className="p-2 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
+        />
       </div>
       <div className="grid grid-cols-1 gap-4 mb-4">
-
-        <textarea value={formData.comment}
+        <textarea
+          value={formData.comment}
           className="p-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
-             placeholder="comments"
-             name="comment"
-             onChange={handleChange}
-          />
+          placeholder="Comments"
+          name="comment"
+          onChange={handleChange}
+        />
       </div>
       <div className="grid grid-cols-1 mb-4 gap-4">
         <div>
-          <input 
+          <input
             name="storeData"
             type="checkbox"
             id="storeData"
@@ -150,32 +125,28 @@ const CommentForm = () => {
             checked={isChecked}
             onChange={handleCheckboxChange}
           />
-          <label className="text-gray-500 cursor-pointer ml-2" 
-            htmlFor="storeData">
+          <label className="text-gray-500 cursor-pointer ml-2" htmlFor="storeData">
             Save my name and email for next time I add comment
           </label>
         </div>
       </div>
-      {/* {error && <p className="text-xs text-red-400">All fields are required</p>} */}
+      {error && <p className="text-xs text-red-400">{error}</p>}
       <div className="flex justify-center mt-4">
-          <button type="button"
-            onClick={handleSubmit}
-            className="text-lg text-white bg-pink-500 cursor-pointer
-            transition duration-500 ease hover:-translate-y-3
-            px-8 py-3 my-10 rounded-full"> 
-            Submit Comment
-          </button>
-          {
-            showSuccessMessage && (
-              <span className="text-sm text-green-600 mt-3">
-                Comment successfully submitted for review
-              </span>
-            )
-          }
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="text-lg text-white bg-pink-500 cursor-pointer transition duration-500 ease hover:-translate-y-3 px-8 py-3 my-10 rounded-full"
+        >
+          Submit Comment
+        </button>
+        {showSuccessMessage && (
+          <span className="text-sm text-green-600 mt-3">
+            Comment successfully submitted for review
+          </span>
+        )}
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default CommentForm
+export default CommentForm;
