@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { createCommentQuery } from '../utils/mutations'
 
 const CommentForm = ({ slug }) => {
   const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [error, setError] = useState('');
-  const uniqueId = uuidv4(); // Generate unique identifier
+
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('formData'));
@@ -28,61 +28,49 @@ const CommentForm = ({ slug }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async () => {
-    const { name, email, comment } = formData;
+ const handleSubmit = async () => {
+  const { name, email, comment } = formData;
 
-    if (!name || !email || !comment) {
-      setError('All fields are required');
-      return;
-    }
+  if (!name || !email || !comment) {
+    setError('All fields are required');
+    return;
+  }
 
-    try {
-      const response = await fetch(process.env.NEXT_PUBLIC_BLOG_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+  try {
+    const response = await fetch(process.env.NEXT_PUBLIC_BLOG_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: createCommentQuery,
+        variables: {
+          name,
+          email,
+          comment,
+          slug:slug,
         },
-        body: JSON.stringify({
-          query: `
-            mutation CreateComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
-              createComment(data: {
-                name: $name,
-                email: $email,
-                comment: $comment,
-                post: {
-                  connect: { slug: $slug }
-                }
-              }) {
-                id
-              }
-            }
-          `,
-          variables: {
-            name,
-            email,
-            comment,
-            slug:slug, // Use dynamically passed slug
-          },
-        }),
-      });
+      }),
+    });
 
-      const data = await response.json();
-      if (data.errors) {
-        throw new Error(data.errors[0].message);
-      }
-
-      localStorage.removeItem('formData'); // Clear formData after successful submission
-
-      setShowSuccessMessage(true);
-      setFormData({ name: '', email: '', comment: '' });
-      setIsChecked(false);
-      setTimeout(() => setShowSuccessMessage(false), 3000);
-      setError('');
-    } catch (error) {
-      console.error('Error submitting comment:', error);
-      setError('Failed to submit comment');
+    const data = await response.json();
+    if (data.errors) {
+      throw new Error(data.errors[0].message);
     }
-  };
+
+    // Clear localStorage and reset form state after successful submission
+    localStorage.removeItem('formData');
+    setShowSuccessMessage(true);
+    setFormData({ name: '', email: '', comment: '' });
+    setIsChecked(false);
+    setTimeout(() => setShowSuccessMessage(false), 3000);
+    setError('');
+  } catch (error) {
+    console.error('Error submitting comment:', error);
+    setError('Failed to submit comment');
+  }
+};
+
 
   return (
     <div className="bg-white m-4 rounded-lg p-6 shadow-md pb-8">

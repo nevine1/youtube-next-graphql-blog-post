@@ -1,7 +1,7 @@
 import React from 'react'
 import { GraphQLClient, gql } from 'graphql'
 import { headers } from 'next/headers';
-import { createCommentQuery } from '../../utils/mutaions'
+import { createCommentQuery } from '../../utils/mutations'
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 const page = (req, res) => {
 
