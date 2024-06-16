@@ -113,3 +113,14 @@ export const getRelatedPostCategoryId = gql`
         }
         }
 `;
+
+export const getAllComments = gql`
+
+    query GetComments {
+    comments(where: {post: {slug: "react-native"}}) {
+        comment
+        createdAt
+        name
+    }
+    }
+`

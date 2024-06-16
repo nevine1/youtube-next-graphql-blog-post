@@ -48,8 +48,7 @@ const page = () => {
     gettingPostDetails(slug);
   }, [slug]);
 
-  // Console log for debugging purposes (remove for production)
-  console.log('Post details:', post);
+  
   return (
     <div className="container mx-auto px-10 mb-8">
       {isLoading && <p>Loading post...</p>} {/* Display loading state */}

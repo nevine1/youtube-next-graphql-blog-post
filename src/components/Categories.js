@@ -30,7 +30,7 @@ const Categories = () => {
         setCategories(data.data.categories);
       }
     } catch (err) {
-      setError('An error occurred while fetching posts.');
+      setError('An error occurred while fetching categories');
     } finally {
       setIsLoading(false);
     }
@@ -40,11 +40,8 @@ const Categories = () => {
   useEffect(() =>{
     getAllCategories();
   }, []) 
-  console.log('categories')
-  console.log(categories)
+  
   return (
-   
-
     <div className="bg-white rounded-lg mb-8 p-5">
       <h2 className="font-semibold border-b text-xl mb-3">Categories</h2>
       {isLoading ? (

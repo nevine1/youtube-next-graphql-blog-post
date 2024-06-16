@@ -7,9 +7,7 @@ import { useParams } from 'next/navigation'
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 
 const RelatedPostCategoryId = ({categoryId}) => {
-  console.log(categoryId)
-  console.log('category id is ' );
-  console.log(categoryId);
+  
   const [relPosts, setRelPosts] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +43,7 @@ const RelatedPostCategoryId = ({categoryId}) => {
   };
 
   useEffect(() => {
-    console.log('Category ID in useEffect:', categoryId); // Debugging log
+    //console.log('Category ID in useEffect:', categoryId); // Debugging log
     if (categoryId) {
       getRelatedPosts(categoryId);
     }
