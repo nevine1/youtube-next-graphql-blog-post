@@ -3,22 +3,22 @@ import moment from 'moment'
 import parse from 'html-react-parser'
 import { getAllComments } from '../utils/queries'
 import { VariablesAreInputTypesRule } from 'graphql'
+import { comment } from 'postcss'
 const Comments = ({slug}) => {
+
   const [comments, setComments ] = useState([])
   const [isLoading, setIsLoading ] = useState(false);
   const [error, setError] = useState(null)
 
-  const getComments = async () =>{
+  const getComments = async (slug) =>{
 
     setIsLoading(true);
 
     try{
       const RequestedBody = {
         query: getAllComments, 
-        variable: {
-          slug
-        }
-      }
+        variables: { slug },
+      };
 
       const options = {
         method: 'POST',
@@ -38,22 +38,42 @@ const Comments = ({slug}) => {
   
   useEffect(() =>{
     getComments(slug)
-  }, [])
-  console.log(comments)
+  }, [slug])
+ 
   return (
-    <div className="bg-white m-4 rounded-lg p-6 shadow-md pb-8">
+    <>
       {
-        comments.length > 0 ? (
-          <h2>{comments.length} Comments</h2>
-        ) : (
-          <h2>{error}</h2>
+        comments.length > 0 && (
+          <div className="bg-white m-4 rounded-lg p-6 shadow-md pb-8">
+            <h2>{comments.length} Comments</h2>
+            {
+              comments.map((comment) =>(
+                <div className="bg-gray-200 p-4 m-3 rounded-md">
+                  <p className="text-[13px] mb-3">
+                    <span className="">
+                      commented by: {comment.name}
+                      {' '}
+                      on
+                      {' '}
+                      {moment(comment.createdAt).format("MMM DD YYYY")}
+                     </span>
+                    </p>
+                  <p className="whitespace-pre-line text-grey-600 ">
+                    {parse(comment.comment)}
+                 
+                 </p>
+                </div>
+              ))
+              
+            }
+          </div>
+          
         )
-
         
       }
-      <h2>Comments</h2>
+      
 
-    </div>
+    </>
   )
 }
 

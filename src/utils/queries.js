@@ -116,8 +116,8 @@ export const getRelatedPostCategoryId = gql`
 
 export const getAllComments = gql`
 
-    query GetComments {
-    comments(where: {post: {slug: "react-native"}}) {
+    query GetComments ($slug: String!){
+    comments(where: {post: {slug: $slug}}) {
         comment
         createdAt
         name
