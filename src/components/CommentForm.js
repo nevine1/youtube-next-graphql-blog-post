@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { createCommentQuery } from '../utils/mutations'
+import { createCommentQuery } from '../utils/mutations';
 
 const CommentForm = ({ slug }) => {
   const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [error, setError] = useState('');
-
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('formData'));
@@ -28,54 +27,60 @@ const CommentForm = ({ slug }) => {
     setFormData({ ...formData, [name]: value });
   };
 
- const handleSubmit = async () => {
-  const { name, email, comment } = formData;
+  const handleSubmit = async () => {
+    const { name, email, comment } = formData;
 
-  if (!name || !email || !comment) {
-    setError('All fields are required');
-    return;
-  }
-
-  try {
-    const response = await fetch(process.env.NEXT_PUBLIC_BLOG_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: createCommentQuery,
-        variables: {
-          name,
-          email,
-          comment,
-          slug:slug,
-        },
-      }),
-    });
-
-    const data = await response.json();
-    if (data.errors) {
-      throw new Error(data.errors[0].message);
+    if (!name || !email || !comment) {
+      setError('All fields are required');
+      return;
     }
 
-    // Clear localStorage and reset form state after successful submission
-    localStorage.removeItem('formData');
-    setShowSuccessMessage(true);
-    setFormData({ name: '', email: '', comment: '' });
-    setIsChecked(false);
-    setTimeout(() => setShowSuccessMessage(false), 3000);
-    setError('');
-  } catch (error) {
-    console.error('Error submitting comment:', error);
-    setError('Failed to submit comment');
-  }
-};
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_BLOG_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: createCommentQuery,
+          variables: {
+            name,
+            email,
+            comment,
+            slug,
+          },
+        }),
+      });
 
+      const data = await response.json();
+
+      if (data.errors) {
+        const errorMessage = data.errors[0].message;
+        if (errorMessage.includes('value is not unique for the field "email"')) {
+          throw new Error('This email has already been used to submit a comment.');
+        }
+        throw new Error(errorMessage);
+      }
+
+      if (isChecked) {
+        localStorage.setItem('formData', JSON.stringify({ name, email }));
+      }
+
+      setShowSuccessMessage(true);
+      setFormData({ name: '', email: '', comment: '' });
+
+      setTimeout(() => setShowSuccessMessage(false), 3000);
+      setError('');
+    } catch (error) {
+      console.error('Error submitting comment:', error);
+      setError(error.message || 'Failed to submit comment');
+    }
+  };
 
   return (
     <div className="bg-white m-4 rounded-lg p-6 shadow-md pb-8">
-      <h2 className="text-lg font-semibold pb-4 border-b">Comments</h2>
-      
+      <h2 className="text-lg font-semibold pb-4 border-b">Add a comment for this post:</h2>
+
       <div className="grid grid-cols-1 mb-4 lg:grid-cols-2 gap-4">
         <input
           value={formData.name}
@@ -114,7 +119,7 @@ const CommentForm = ({ slug }) => {
             onChange={handleCheckboxChange}
           />
           <label className="text-gray-500 cursor-pointer ml-2" htmlFor="storeData">
-            Save my name and email for next time I add comment
+            Save my name and email for next time I add a comment
           </label>
         </div>
       </div>

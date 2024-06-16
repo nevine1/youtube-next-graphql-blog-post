@@ -90,7 +90,7 @@ const page = () => {
               <p className="text-lg">{post.author.name}</p>
               <Author author={post.author}/>
               <CommentForm slug={post.slug}/>
-              <Comments/>
+              <Comments slug={post.slug} />
             </div>
           </div>
           
