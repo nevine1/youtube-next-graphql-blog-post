@@ -1,9 +1,9 @@
-import {useState, useEffect} from 'react'
-import { getCategories } from '@/utils/queries'
-
+/* import {useState, useEffect} from 'react'
+import { getCategories } from '@/utils/queries' */
+import { getAllCategories } from '../components/GetPostsCategories';
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  /* const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,7 +40,8 @@ const Categories = () => {
   useEffect(() =>{
     getAllCategories();
   }, []) 
-  
+   */
+  console.log(categories)
   return (
     <div className="bg-white rounded-lg mb-8 p-5">
       <h2 className="font-semibold border-b text-xl mb-3">Categories</h2>
