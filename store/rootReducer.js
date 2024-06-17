@@ -2,7 +2,7 @@
 import { useReducer } from "react";
 
 import { combineReducers } from "redux";
-import postsReducer from './reducers/postsSlice';
+import postsReducer from './slices/posts/postsSlice';
 
 const rootReducer = combineReducers({
     posts: postsReducer, 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+/* import { useState, useEffect } from 'react'
 
 const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
@@ -45,4 +45,14 @@ const [categories, setCategories] = useState([]);
 
   useEffect(() =>{
     getAllCategories();
-  }, []) 
+  }, [])  */
+
+  import React from 'react'
+  
+  const GetPostsCategories = () => {
+    return (
+      <div>GetPostsCategories</div>
+    )
+  }
+  
+  export default GetPostsCategories
