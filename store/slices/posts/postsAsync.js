@@ -2,7 +2,7 @@
 import { getPostsQuery } from '../../../src/utils/queries'
 
 import { request } from 'graphql-request';
-import {setIsLoading, gettingPosts, fetchPostsFailure  } from './postsSlice'
+import {setIsLoading, gettingPosts, setError  } from './postsSlice'
 
 const graphqlAPI = process.env. NEXT_PUBLIC_BLOG_ENDPOINT ;
 
@@ -11,7 +11,7 @@ const graphqlAPI = process.env. NEXT_PUBLIC_BLOG_ENDPOINT ;
 
 
 
-export const fetchPosts = () => async (dispatch) => {
+export const fetchPostsList = () => async (dispatch) => {
 
     dispatch(setIsLoading());
     try {
@@ -25,6 +25,6 @@ export const fetchPosts = () => async (dispatch) => {
         dispatch(gettingPosts(posts));
       
     } catch (error) {
-        dispatch(fetchPostsFailure(error.message));
+        dispatch(setError(error.message));
     }
 };

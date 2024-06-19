@@ -6,7 +6,7 @@ import { Categories, PostCard, PostWidget, RelatedPostCategoryId } from "../comp
 /* import { getPostsQuery } from "../utils/queries";  */
 import { gettingPosts } from '../../store/slices/posts/postsAsync'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts } from '../../store/slices/posts/postsAsync'
+import { fetchPostsList } from '../../store/slices/posts/postsAsync'
 export default function Home() {
 
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export default function Home() {
 
 
     useEffect(() => {
-        dispatch(fetchPosts());
+        dispatch(fetchPostsList());
     }, [dispatch]);
 
     if (isLoading) {

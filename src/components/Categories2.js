@@ -1,14 +1,15 @@
 import {useState, useEffect} from 'react'
-import { fetchCategoriesList } from '../../store/slices/categories/categoriesAsync'
-import { useDispatch, useSelector } from 'react-redux';
-const Categories = () => {
-  const dispatch = useDispatch(); 
-  const { categories, isLoading, error  } = useSelector((state) =>state.categories)
-  /* const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); */
+import { getCategories } from '@/utils/queries'
+import { getAllCategories } from '../components/GetPostsCategories';
+const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 
-  /* const getAllCategories = async () =>{
+const Categories = () => {
+
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getAllCategories = async () =>{
 
     setIsLoading(true); //
 
@@ -36,14 +37,11 @@ const Categories = () => {
       setIsLoading(false);
     }
     
-  } */
-console.log(categories)
-  useEffect(() =>{
-    fetchCategoriesList();
+  }
 
-    if(isLoading) { return <h3>Loading.....</h3>}
-    if(error) { return <h3>Error {error} </h3>}
-  }, [dispatch]) 
+  useEffect(() =>{
+    getAllCategories();
+  }, []) 
   
   console.log(categories)
   return (
