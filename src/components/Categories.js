@@ -1,60 +1,33 @@
 import {useState, useEffect} from 'react'
-import { fetchCategoriesList } from '../../store/slices/categories/categoriesAsync'
+import { fetchCategoriesList } from '../../store/slices/category/categoriesAsync'
 import { useDispatch, useSelector } from 'react-redux';
 const Categories = () => {
   const dispatch = useDispatch(); 
   const { categories, isLoading, error  } = useSelector((state) =>state.categories)
-  /* const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); */
 
-  /* const getAllCategories = async () =>{
 
-    setIsLoading(true); //
+  useEffect(() => {
+        dispatch(fetchCategoriesList());
 
-    try{
+    }, [dispatch]);
 
-      const options = {
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({
-          query: getCategories
-        })
-      };
-  
-      const response = await fetch(graphAPI, options);
-      const data = await response.json();
-     
-      if (data.errors) {
-        setError(data.errors[0].message);
-      } else {
-        setCategories(data.data.categories);
-      }
-    } catch (err) {
-      setError('An error occurred while fetching categories');
-    } finally {
-      setIsLoading(false);
+    /* useEffect(() => {
+        console.log('Categories:', categories);
+    }, [categories]); */
+
+   
+
+    if (error) {
+        return <div>Error: {error}</div>;
     }
-    
-  } */
-console.log(categories)
-  useEffect(() =>{
-    fetchCategoriesList();
-
-    if(isLoading) { return <h3>Loading.....</h3>}
-    if(error) { return <h3>Error {error} </h3>}
-  }, [dispatch]) 
-  
+      
   console.log(categories)
+  
   return (
     <div className="bg-white rounded-lg mb-8 p-5">
       <h2 className="font-semibold border-b text-xl mb-3">Categories</h2>
-      {isLoading ? (
-        <p>Loading categories ...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        // Conditional rendering within useEffect to ensure fetched data
+      {
+      
         categories.map((category) =>(
           <div key={category.id}
             className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-3 mb-3">
@@ -65,7 +38,7 @@ console.log(categories)
           
 
         ))
-      )} 
+      } 
 
     </div>
   )

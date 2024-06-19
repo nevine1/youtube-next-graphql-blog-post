@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setIsLoading } from "../posts/postsSlice";
 
-const categoriesSlice = createSlice({
-    name: "categories", 
+const categorySlice = createSlice({
+    name: 'categories', 
     initialState: {
-        categories: [], 
+        categories: [ ], 
         isLoading: false, 
         error: null 
     }, 
@@ -14,7 +13,7 @@ const categoriesSlice = createSlice({
             state.error = null;
         }, 
         gettingCategoriesList: (state, action) =>{
-            state.categories = action.payload
+            state.categories = action.payload;
             state.isLoading = false;
         }, 
         setError: (state, action) => {
@@ -23,6 +22,5 @@ const categoriesSlice = createSlice({
         },
     }
 })
-
-export const { setIsLoading, gettingCategoriesList, setError } = categoriesSlice.actions;
-export default categoriesSlice.reducer;
+export const { setIsLoading, gettingCategoriesList, setError } = categorySlice.actions;
+export default categorySlice.reducer
