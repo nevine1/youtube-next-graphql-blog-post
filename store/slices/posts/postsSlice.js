@@ -11,20 +11,20 @@ const postsSlice = createSlice({
         error: null,
     },
     reducers: {
-        fetchPostsStart(state) {
+        setIsLoading: (state, action) => {
             state.isLoading = true;
             state.error = null;
         },
-        fetchPostsSuccess(state, action) {
+        gettingPosts: (state, action) => {
             state.posts = action.payload;
             state.isLoading = false;
         },
-        fetchPostsFailure(state, action) {
+        fetchPostsFailure: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         },
     },
 });
 
-export const { fetchPostsStart, fetchPostsSuccess, fetchPostsFailure } = postsSlice.actions;
+export const { setIsLoading, gettingPosts, fetchPostsFailure } = postsSlice.actions;
 export default postsSlice.reducer;
