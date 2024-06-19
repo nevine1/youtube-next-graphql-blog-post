@@ -1,45 +1,33 @@
 "use client"
-import { request, gql, GraphQLClient } from "graphql-request";
+//import { request, gql, GraphQLClient } from "graphql-request";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Categories, PostCard, PostWidget, RelatedPostCategoryId } from "../components/page";
-import { getPostsQuery } from "../utils/queries"; // Assuming GetPostsQuery is defined here
-
+/* import { getPostsQuery } from "../utils/queries";  */
+import { gettingPosts } from '../../store/slices/posts/postsAsync'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPosts } from '../../store/slices/posts/postsAsync'
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [posts, setPosts] = useState([]);
-  
 
-  const getAllPosts = async () => {
-    setIsLoading(true);
-    try {
-      const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
-      // Make the request to your GraphQL endpoint
-      const response = await request(graphqlAPI, getPostsQuery);
-      // Check for errors in the response
-      if (response.errors) {
-        setError(response.errors[0].message);
-        console.error("GraphQL errors:", response.errors);
-        return; // Exit early if there are errors
-      }
-      // Extract posts data using destructuring
-      const { postsConnection: { edges } } = response; // Destructure data
-      const posts = edges.map((edge) => edge.node); // Map over edges to get posts
+  const dispatch = useDispatch();
   
-      setPosts(posts); // Update state with fetched posts
-    } catch (error) {
-      setError("An error occurred while fetching posts.");
-      console.error("Error fetching posts:", error);
-    } finally {
-      setIsLoading(false);
+  const { posts, isLoading, error } = useSelector((state) => state.posts);
+  /* console.log('Redux State:', state);  */// Inspect the state shape
+    //const { posts, isLoading, error } = state.posts || { posts: [], isLoading: false, error: null };
+
+
+
+    useEffect(() => {
+        dispatch(fetchPosts());
+    }, [dispatch]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
     }
-  };
-  console.log(posts)
- 
-  useEffect(() => {
-    getAllPosts(); // Fetch posts on component mount
-  }, []);
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
   return (
     <div className="container mx-auto px-10 mb-8">
@@ -67,3 +55,35 @@ export default function Home() {
     </div>
   );
 }
+
+
+/*  const getAllPosts = async () => {
+    setIsLoading(true);
+    try {
+      const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
+      // Make the request to your GraphQL endpoint
+      const response = await request(graphqlAPI, getPostsQuery);
+      // Check for errors in the response
+      if (response.errors) {
+        setError(response.errors[0].message);
+        console.error("GraphQL errors:", response.errors);
+        return; // Exit early if there are errors
+      }
+      // Extract posts data using destructuring
+      const { postsConnection: { edges } } = response; // Destructure data
+      const posts = edges.map((edge) => edge.node); // Map over edges to get posts
+  
+      setPosts(posts); // Update state with fetched posts
+    } catch (error) {
+      setError("An error occurred while fetching posts.");
+      console.error("Error fetching posts:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  console.log(posts) */
+ 
+  /* useEffect(() => {
+    getAllPosts(); 
+  }, []);
+ */
