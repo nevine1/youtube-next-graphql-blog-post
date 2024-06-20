@@ -2,56 +2,42 @@
 //import { request, gql, GraphQLClient } from "graphql-request";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Categories, PostCard, PostWidget, RelatedPostCategoryId } from "../components/page";
-/* import { getPostsQuery } from "../utils/queries";  */
-import { gettingPosts } from '../../store/slices/posts/postsAsync'
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPostsList } from '../../store/slices/posts/postsAsync'
+import { TbBrandRedux } from "react-icons/tb";
+import { SiGraphql } from "react-icons/si";
+import { RiNextjsLine } from "react-icons/ri";
 export default function Home() {
 
-  const dispatch = useDispatch();
-  
-  const { posts, isLoading, error } = useSelector((state) => state.posts);
-  /* console.log('Redux State:', state);  */// Inspect the state shape
-    //const { posts, isLoading, error } = state.posts || { posts: [], isLoading: false, error: null };
 
 
 
-    useEffect(() => {
-        dispatch(fetchPostsList());
-    }, [dispatch]);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+   
 
   return (
-    <div className="container mx-auto px-10 mb-8">
-      {isLoading && <p>Loading posts...</p>} {/* Display loading state */}
-      {error && <p className="error">Error: {error}</p>} {/* Display error message */}
-      {posts.length > 0 && ( // Render posts only if fetched successfully
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 ">
-          <div className="lg:col-span-8 col-span-1 rounded">
-          {
-                posts.map((post) =>(
-                  <PostCard post={post} />
-                ))
-              }
-          </div>
-          <div className="lg:col-span-4 col-span-1 rounded">
-            <div className="lg:sticky relative top-8">
-              
-              <PostWidget/>
-              <Categories/>
-              
-            </div>
-          </div>
+    <div className="container mx-auto px-10 mb-8 flex items-center  justify-center ">
+      <main >
+        <h2>Welcome to my Next<span>js</span> 14 Project</h2>
+        <div className="flex items-center py-3">
+          <RiNextjsLine className="font-bold text-8xl text-slate-700 mr-6" />
+          <span className="font-semibold text-3xl text-zinc-600 italic">
+            Next
+          </span>
+          <span>.js</span>
         </div>
-      )}
+        <div className="flex items-center py-3">
+          <SiGraphql className="font-bold text-8xl text-fuchsia-500 mr-6" />
+          <span className="font-semibold text-3xl text-zinc-600 italic">
+            GraphQL 
+          </span>
+        </div>
+        <div className="flex items-center py-3">
+          <TbBrandRedux className="font-bold text-8xl text-indigo-600 mr-6" />
+          <span className="font-semibold text-3xl text-zinc-600 italic">
+            Redux/Toolkit  
+          </span>
+        </div>
+        
+       
+      </main>
     </div>
   );
 }
