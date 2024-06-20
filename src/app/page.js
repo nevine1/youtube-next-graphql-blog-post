@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { TbBrandRedux } from "react-icons/tb";
 import { SiGraphql } from "react-icons/si";
 import { RiNextjsLine } from "react-icons/ri";
+import Link from 'next/link'
 export default function Home() {
 
 
@@ -14,14 +15,14 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-10 mb-8 flex items-center  justify-center ">
-      <main >
+      <div className="items-center">
         <h2>Welcome to my Next<span>js</span> 14 Project</h2>
         <div className="flex items-center py-3">
           <RiNextjsLine className="font-bold text-8xl text-slate-700 mr-6" />
           <span className="font-semibold text-3xl text-zinc-600 italic">
             Next
           </span>
-          <span>.js</span>
+          <span className="text-[16px] mt-2 ml-1 text-zinc-600 italic">.js</span>
         </div>
         <div className="flex items-center py-3">
           <SiGraphql className="font-bold text-8xl text-fuchsia-500 mr-6" />
@@ -35,9 +36,11 @@ export default function Home() {
             Redux/Toolkit  
           </span>
         </div>
-        
+        <div className="flex items-center py-3">
+          <Link href="/posts">Click here for blog posts</Link>
+        </div>
        
-      </main>
+      </div>
     </div>
   );
 }

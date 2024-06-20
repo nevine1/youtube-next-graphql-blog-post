@@ -1,46 +1,19 @@
 "use client"
 import {useState, useEffect} from 'react'
 import  Link  from 'next/link'
-import { getCategories } from '../utils/queries'
-
+import { useSelector, useDispatch } from 'react-redux'
+import {fetchCategoriesList } from '../../store/slices/category/categoriesAsync'
 const Header = () => {
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const getAllCategories = async () =>{
-
-    setIsLoading(true); //
-
-    try{
-
-      const options = {
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({
-          query: getCategories
-        })
-      };
-  
-      const response = await fetch(graphAPI, options);
-      const data = await response.json();
-     console.log(data)
-      if (data.errors) {
-        setError(data.errors[0].message);
-      } else {
-        setCategories(data.data.categories);
-      }
-    } catch (err) {
-      setError('An error occurred while fetching categories');
-    } finally {
-      setIsLoading(false);
-    }
-    
-  }
+  const dispatch = useDispatch();
+  const {categories, isLoading, error} = useSelector((state) => state.categories );
 
   useEffect(() =>{
-    getAllCategories();
-  }, []) 
+    fetchCategoriesList();
+  }, [dispatch])
+
+  useEffect(() =>{
+    console.log(categories)
+  }, [categories])
   console.log(categories)
   return (
     <div className="container mx-auto px-10 mb-10">
@@ -53,7 +26,7 @@ const Header = () => {
             </span>
           </Link>
         </div>
-        <div className="hidden md:float-left md:contents">
+        <div className=" md:float-left md:contents">
           {
             categories.map((category , index)=>(
               <Link key={category.index} href={`/categories/${category.slug}`}>
