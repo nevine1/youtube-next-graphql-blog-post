@@ -2,7 +2,7 @@
 //import { request, gql, GraphQLClient } from "graphql-request";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Categories, PostCard, PostWidget, RelatedPostCategoryId } from "../../components/page";
+import { CategoriesList, PostCard, PostWidget, RelatedPostCategoryId } from "../../components/page";
 /* import { getPostsQuery } from "../utils/queries";  */
 import { gettingPosts } from '../../../store/slices/posts/postsAsync'
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,7 +47,7 @@ const page = () => {
             <div className="lg:sticky relative top-8">
               
               <PostWidget/>
-              <Categories/>
+              <CategoriesList/>
               
             </div>
           </div>

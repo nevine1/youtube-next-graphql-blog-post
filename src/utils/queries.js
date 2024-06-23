@@ -79,7 +79,7 @@ export const getPostDetails = gql`
         }
 `;
 
-export const getCategories = gql`
+export const getCategoriesQuery = gql`
 
     query Categories {
         categories {
@@ -124,3 +124,29 @@ export const getAllComments = gql`
     }
     }
 `
+
+export const fetchCategoryPosts = gql`
+    query GetCategoryPosts($slug: String!){}{
+    category(where: {slug: $slug}) {
+        name
+        slug
+        posts {
+        id
+        slug
+        title
+        }
+    }
+    }
+`;
+
+export const getCategoryPostsQuery = gql`
+    query GetCategoryPosts ($slug: String!){
+    category(where: {slug: $slug}) {
+        posts {
+        id
+        slug
+        title
+        }
+    }
+    }
+`;

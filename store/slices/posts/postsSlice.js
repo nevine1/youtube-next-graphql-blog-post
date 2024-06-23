@@ -26,5 +26,5 @@ const postsSlice = createSlice({
     },
 });
 
-export const { setIsLoading, gettingPosts, setError } = postsSlice.actions;
+export const { setIsLoading, gettingPosts, setError , getPostsByCategorySuccess} = postsSlice.actions;
 export default postsSlice.reducer;
