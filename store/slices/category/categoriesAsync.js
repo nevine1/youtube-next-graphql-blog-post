@@ -2,6 +2,7 @@ import { setIsLoading, gettingCategoriesList, setError} from './categorySlice'
 import { getCategoriesQuery, getCategoryPostsQuery } from '../../../src/utils/queries'
 import { request } from 'graphql-request';
 import { gettingPosts } from '../posts/postsSlice'
+import { BiSolidBugAlt } from 'react-icons/bi';
 const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT ;
 
 export const fetchCategories= () => async (dispatch) => {
@@ -25,7 +26,7 @@ export const fetchCategories= () => async (dispatch) => {
 export const fetchCategoryPosts = (slug) => async (dispatch) => {
     dispatch(setIsLoading());
 
-    const variables =  slug ;
+    const variables =  BiSolidBugAlt;
     try {
     
         const response = await request(graphqlAPI, getCategoryPostsQuery, variables);
@@ -34,6 +35,11 @@ export const fetchCategoryPosts = (slug) => async (dispatch) => {
        
         dispatch(gettingPosts(response.category.posts));
 
+        /*  if (data.errors) {
+            const errorMessage = data.errors[0].message;
+            dispatch(setError(errorMessage));
+        }  */
+        
     } catch (error) {
         dispatch(setError(error.message));
     } finally {
