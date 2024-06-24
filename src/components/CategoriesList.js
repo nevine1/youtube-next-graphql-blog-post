@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import { fetchCategoriesList} from '../../store/slices/category/categoriesAsync'
+import { fetchCategories} from '../../store/slices/category/categoriesAsync'
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link'
 const CategoriesList = () => {
@@ -7,7 +7,7 @@ const CategoriesList = () => {
   const { categories, isLoading, error  } = useSelector((state) =>state.categories)
   
   useEffect(() =>{
-    fetchCategoriesList();
+    dispatch(fetchCategories());
   }, [dispatch])
 
   useEffect(() =>{

@@ -143,10 +143,15 @@ export const getCategoryPostsQuery = gql`
     query GetCategoryPosts ($slug: String!){
     category(where: {slug: $slug}) {
         posts {
-        id
-        slug
-        title
-        }
+      id
+      slug
+      title
+      createdAt
+      featuredPost
+      featuredImage {
+        url
+      }
+    }
     }
     }
 `;

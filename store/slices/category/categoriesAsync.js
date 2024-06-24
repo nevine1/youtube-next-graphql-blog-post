@@ -26,7 +26,7 @@ export const fetchCategories= () => async (dispatch) => {
 export const fetchCategoryPosts = (slug) => async (dispatch) => {
     dispatch(setIsLoading());
 
-    const variables =  BiSolidBugAlt;
+    const variables =  slug;
     try {
     
         const response = await request(graphqlAPI, getCategoryPostsQuery, variables);

@@ -58,33 +58,3 @@ const page = () => {
 }
 
 export default page; 
-/*  const getAllPosts = async () => {
-    setIsLoading(true);
-    try {
-      const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
-      // Make the request to your GraphQL endpoint
-      const response = await request(graphqlAPI, getPostsQuery);
-      // Check for errors in the response
-      if (response.errors) {
-        setError(response.errors[0].message);
-        console.error("GraphQL errors:", response.errors);
-        return; // Exit early if there are errors
-      }
-      // Extract posts data using destructuring
-      const { postsConnection: { edges } } = response; // Destructure data
-      const posts = edges.map((edge) => edge.node); // Map over edges to get posts
-  
-      setPosts(posts); // Update state with fetched posts
-    } catch (error) {
-      setError("An error occurred while fetching posts.");
-      console.error("Error fetching posts:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  console.log(posts) */
- 
-  /* useEffect(() => {
-    getAllPosts(); 
-  }, []);
- */
