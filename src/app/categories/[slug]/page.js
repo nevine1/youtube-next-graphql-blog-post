@@ -3,7 +3,7 @@ import {useEffect } from 'react'
 import { useParams } from 'next/navigation';
 import {useSelector, useDispatch } from 'react-redux'
 import { fetchCategoryPosts } from '../../../../store/slices/category/categoriesAsync'
-import { PostCard, PostWidget } from '../../../components/page'
+import { CategoryPostCard, PostWidget } from '../../../components/page'
 const page = () => {
   const slug = useParams();
   
@@ -25,7 +25,7 @@ const page = () => {
  }
   return (
    
-    <div className="container mx-auto px-10 mb-8">
+    <div className="container mx-auto px-12 mb-8">
     {isLoading && <p>Loading posts...</p>} {/* Display loading state */}
     {error && <p className="error">Error: {error}</p>} {/* Display error message */}
     {posts.length > 0 && ( // Render posts only if fetched successfully
@@ -33,7 +33,7 @@ const page = () => {
         <div className="lg:col-span-8 col-span-1 rounded" >
         {
               posts.map((post, index) =>(
-                <PostCard post={post} key={index} />
+                <CategoryPostCard post={post} key={index} />
               ))
             }
         </div>
@@ -41,7 +41,6 @@ const page = () => {
           <div className="lg:sticky relative top-8">
             
             <PostWidget />
-            {/* <CategoriesList/> */}
             
           </div>
         </div>

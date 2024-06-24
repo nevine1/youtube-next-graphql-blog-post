@@ -151,6 +151,7 @@ export const getCategoryPostsQuery = gql`
       featuredImage {
         url
       }
+      expert
     }
     }
     }
