@@ -48,7 +48,7 @@ export const recentPosts = gql`
 
     `;
 
-export const getPostDetails = gql`
+export const getPostDetailsQuery = gql`
     query PostDetails($slug: String) {
         post(where: {slug: $slug}) {
             expert

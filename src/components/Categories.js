@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import { getCategories } from '@/utils/queries'
-import { getAllCategories } from '../components/GetPostsCategories';
+import { getAllCategories } from './GetPostsCategories';
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 
 const Categories = () => {

@@ -1,17 +1,21 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { getPostDetails } from '../../../utils/queries';
 import { Categories, PostCard, PostWidget, RelatedPostCategoryId, 
           Author, CommentForm, Comments, SinglePostDetails
         } from "../../../components/page";
+import { fetchPostDetails } from '../../../../store/slices/posts/postsAsync'
+import { useDispatch, useSelector } from 'react-redux';
 const page = () => {
   const { slug } = useParams();
-  const [post, setPost] = useState(null); // Initial state with null to avoid rendering issues
+  const dispatch = useDispatch();
+  const { posts , postDetails, setIsLoading, setError} = useSelector((state) =>state.posts)
+ 
+  /* const [post, setPost] = useState(null); // Initial state with null to avoid rendering issues
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const gettingPostDetails = async () => {
+  const [error, setError] = useState(null); */
+  console.log(slug)
+  /* const gettingPostDetails = async () => {
     setIsLoading(true);
 
     try {
@@ -43,35 +47,35 @@ const page = () => {
       setIsLoading(false);
     }
   };
-
+ */
   useEffect(() => {
-    gettingPostDetails(slug);
-  }, [slug]);
+    dispatch(fetchPostDetails(slug));
+  }, [dispatch, slug]);
 
   
   return (
     <div className="container mx-auto px-10 mb-8">
-      {isLoading && <p>Loading post...</p>} {/* Display loading state */}
-      {error && <p className="error">Error: {error}</p>} {/* Display error message */}
+      {/* {isLoading && <p>Loading post...</p>} 
+      {error && <p className="error">Error: {error}</p>}  */}
 
-      {post && (
+      {postDetails && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8 col-span-1 rounded">
             <div className=" rounded-lg p-0 lg:p-8 pb-12 mb-8">
               
              
-              <SinglePostDetails post={post} />
-              <p className="text-lg">{post.author.name}</p>
-              <Author author={post.author}/>
-              <CommentForm slug={post.slug}/>
-              <Comments slug={post.slug} />
+              <SinglePostDetails postDetails={postDetails} />
+              <p className="text-lg">{postDetails.author.name}</p>
+              <Author author={postDetails.author}/>
+              <CommentForm slug={postDetails.slug}/>
+              <Comments slug={postDetails.slug} />
             </div>
           </div>
           
           <div className="lg:col-span-4 col-span-1  lg:sticky relative">
            
             <div className=" bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-3 mb-3 text-[20px]">
-              <RelatedPostCategoryId categoryId ={post.categories[0].slug}/>
+              <RelatedPostCategoryId categoryId ={postDetails.categories[0].slug}/>
             </div>
 
             <div className="bg-white p-3 pb-2 rounded-lg">
@@ -82,7 +86,6 @@ const page = () => {
         </div>
       )}
 
-      {!post && !isLoading && !error && <p>Posts not found.</p>} {/* Display message if no post found */}
     </div>
   );
 };

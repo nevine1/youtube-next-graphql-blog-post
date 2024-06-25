@@ -7,6 +7,7 @@ const postsSlice = createSlice({
     name: 'posts',
     initialState: {
         posts: [],
+        postDetails: null,
         isLoading: false,
         error: null,
     },
@@ -23,8 +24,11 @@ const postsSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+        getPostDetails: (state, action) => {
+            state.postDetails = action.payload;
+        }
     },
 });
 
-export const { setIsLoading, gettingPosts, setError , getPostsByCategorySuccess} = postsSlice.actions;
+export const { setIsLoading, gettingPosts, setError, getPostDetails} = postsSlice.actions;
 export default postsSlice.reducer;
