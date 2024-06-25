@@ -26,24 +26,27 @@ const page = () => {
   return (
    
     <div className="container mx-auto px-12 mb-8">
+      
     {isLoading && <p>Loading posts...</p>} {/* Display loading state */}
     {error && <p className="error">Error: {error}</p>} {/* Display error message */}
     {posts.length > 0 && ( // Render posts only if fetched successfully
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 ">
-        <div className="lg:col-span-8 col-span-1 rounded" >
+      <div className="p-10">
+        <div> </div>
+        <div className="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-6 gap-12" >
+        {/* <div className="lg:col-span-8 col-span-1 rounded" > */}
         {
               posts.map((post, index) =>(
                 <CategoryPostCard post={post} key={index} />
               ))
             }
         </div>
-        <div className="lg:col-span-4 col-span-1 rounded">
+       {/*  <div className="lg:col-span-4 col-span-1 rounded">
           <div className="lg:sticky relative top-8">
             
             <PostWidget />
             
           </div>
-        </div>
+        </div> */}
       </div>
     )}
   </div>
