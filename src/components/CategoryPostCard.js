@@ -30,6 +30,9 @@ const CategoryPostCard = ({post}) => {
                         inline-block bg-pink-500 text-white text-small rounded-full px-4 py-2"
                     >Continue Reading</span>
                 </Link>
+                <h2>number of comments {post.comments.length}</h2>
+                <Link>Show Comments </Link>
+                {/* <Link href={`/posts `}>See comments </Link> */}
             
         
         </div>

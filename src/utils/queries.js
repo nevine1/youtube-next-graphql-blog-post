@@ -143,16 +143,37 @@ export const getCategoryPostsQuery = gql`
     query GetCategoryPosts ($slug: String!){
     category(where: {slug: $slug}) {
         posts {
-      id
-      slug
-      title
-      createdAt
-      featuredPost
-      featuredImage {
-        url
-      }
-      expert
+            id
+            slug
+            title
+            createdAt
+            featuredPost
+            featuredImage {
+                url
+            }
+            expert
+            comments {
+                name
+                email
+                comment
+                createdAt
+                }
+            }
     }
     }
+`;
+
+export const getPostComments = gql`
+
+    query PostComments(slug: String!) {
+        post(where: {slug: $slug}) {
+            title
+            comments {
+            name
+            email
+            createdAt
+            }
+        }
     }
+
 `;
