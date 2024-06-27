@@ -2,8 +2,8 @@ import {useState, useEffect }from 'react'
 import moment from 'moment'
 import parse from 'html-react-parser'
 import { getAllComments } from '../utils/queries'
-import { VariablesAreInputTypesRule } from 'graphql'
-import { comment } from 'postcss'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 const Comments = ({slug}) => {
 
   

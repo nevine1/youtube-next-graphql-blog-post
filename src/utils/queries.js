@@ -163,7 +163,7 @@ export const getCategoryPostsQuery = gql`
     }
 `;
 
-export const getPostComments = gql`
+export const getPostCommentsQuery = gql`
 
     query PostComments(slug: String!) {
         post(where: {slug: $slug}) {

@@ -11,7 +11,7 @@ const commentsSlice = createSlice({
         setIsLoading: (state, action) =>{
             state.isLoading = action.payload;
         }, 
-        getComments: (state, action) => {
+        getPostComments: (state, action) => {
             state.comments = action.payload;
         }, 
         setError: (state, action) =>{
@@ -20,5 +20,5 @@ const commentsSlice = createSlice({
     }
 });
 
-export const {setIsLoading , getComments, setError } = commentsSlice.actions; //
+export const {setIsLoading , getPostComments, setError } = commentsSlice.actions; //
 export default commentsSlice.reducer;

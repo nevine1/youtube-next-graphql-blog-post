@@ -31,7 +31,7 @@ const CategoriesList = () => {
           </div>
         ))
         )} 
-
+      
     </div>
   )
 }

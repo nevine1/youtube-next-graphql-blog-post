@@ -26,7 +26,7 @@ export const fetchCategories= () => async (dispatch) => {
 export const fetchCategoryPosts = (slug) => async (dispatch) => {
     dispatch(setIsLoading());
 
-    const variables =  slug;
+    const variables =  {slug};
     try {
     
         const response = await request(graphqlAPI, getCategoryPostsQuery, variables);
@@ -35,10 +35,10 @@ export const fetchCategoryPosts = (slug) => async (dispatch) => {
        
         dispatch(gettingPosts(response.category.posts));
 
-        /*  if (data.errors) {
+         if (data.errors) {
             const errorMessage = data.errors[0].message;
             dispatch(setError(errorMessage));
-        }  */
+        } 
         
     } catch (error) {
         dispatch(setError(error.message));

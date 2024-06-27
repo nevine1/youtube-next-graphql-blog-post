@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCategories} from '../../../store/slices/category/categoriesAsync'
-import { CategoryPostsList, CategoriesList } from '@/components/page'
+import { CategoryPostsList, CategoriesList , AddCategoryForm} from '@/components/page'
 import Link from 'next/link'
 const page = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,9 @@ if (error) {
           </div>
         ))
       }
+      <div>
+        <AddCategoryForm/>
+      </div>
     </div>
   )
 }

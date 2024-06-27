@@ -9,8 +9,6 @@ const graphqlAPI = process.env. NEXT_PUBLIC_BLOG_ENDPOINT ;
 
 
 
-
-
 export const fetchPostsList = () => async (dispatch) => {
 
     dispatch(setIsLoading());
