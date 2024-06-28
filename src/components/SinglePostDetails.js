@@ -6,7 +6,8 @@ import Author from './Author';
 const SinglePostDetails = ({postDetails}) => {
   return (
     <>
-        <div className="bg-white shadow-lg rounded-lg lg:p-4 pb-4 mb-4">
+      <div className="bg-white shadow-lg rounded-lg lg:p-4 pb-4 mb-4">
+      <h1 className="my-5 text-2xl font-semibold">{postDetails.title}</h1>
         <div className="relative overflow-hidden shadow-md mb-6">
           <img src={postDetails.featuredImage.url} alt="" className="object-top   w-full object-cover  shadow-lg rounded-t-lg lg:rounded-lg" />
         </div>
@@ -29,7 +30,7 @@ const SinglePostDetails = ({postDetails}) => {
               <span className="align-middle">{moment(postDetails.createdAt).format('MMM DD, YYYY')}</span>
             </div>
           </div>
-          <h1 className="mb-8 text-3xl font-semibold">{postDetails.title}</h1>
+          
           <p>{postDetails.content.markdown}</p>
         </div>
       </div>

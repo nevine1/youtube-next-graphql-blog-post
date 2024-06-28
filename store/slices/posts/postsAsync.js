@@ -33,7 +33,7 @@ export const fetchPostDetails = (postSlug) => async (dispatch ) =>{
 
         const variables = { slug: postSlug };
         const response = await request(graphqlAPI, getPostDetailsQuery, variables );
-        console.log(response);
+        console.log(response.post);
         dispatch(getPostDetails(response.post));
         
     }catch(err){
