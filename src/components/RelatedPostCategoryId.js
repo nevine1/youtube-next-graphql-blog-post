@@ -4,6 +4,7 @@ import axios from 'axios';
 import { gql } from 'graphql-request';
 import { getRelatedPostCategoryId} from '../utils/queries'
 import { useParams } from 'next/navigation'
+import Link from 'next/link'
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 
 const RelatedPostCategoryId = ({categoryId, postSlug}) => {
@@ -48,21 +49,29 @@ const RelatedPostCategoryId = ({categoryId, postSlug}) => {
       getRelatedPosts(categoryId);
     }
   }, [categoryId]); 
+
   return (
     <div className="bg-white rounded-lg mb-8 p-5">
       <h2 className="font-semibold border-b text-xl mb-8">Related Posts</h2>
-      {isLoading ? (
-        <p>Loading posts...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) :  ( 
-        
+
+        {isLoading ? (
+          <p>Loading posts...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) :  ( 
+          
           relPosts.map((post) => (
             postSlug !== post.slug && //this code to not display the post displayed in postDetails page 
-
-            <h2 key={post.id}>{post.slug}</h2>
+            
+              <div key={post.id} 
+                className="bg-gray-100 mb-4 p-3 rounded-md border-red-950"
+                   >
+                <Link href={`/posts/${post.slug}`}
+                  className="font-semibold text-gray-600 hover:text-red-500 transition-all duration-200"
+                  >{post.title}</Link>
+              </div>
+            
           ))
-       
        
       )}
     </div>

@@ -9,10 +9,6 @@ import Link from 'next/link'
 export default function Home() {
 
 
-
-
-   
-
   return (
     <div className="container mx-auto px-10 mb-8 flex items-center  justify-center ">
       <div className="items-center">

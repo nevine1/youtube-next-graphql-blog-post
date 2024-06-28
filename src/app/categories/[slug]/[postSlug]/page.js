@@ -1,7 +1,7 @@
 "use client"
 import {useEffect } from 'react'
 import { useParams } from 'next/navigation';
-import { CategoryPostDetails , SinglePostDetails, CommentForm, Author, RelatedPostCategoryId } from '../../../../components/page'
+import { SinglePostDetails, CommentForm, Author, RelatedPostCategoryId } from '../../../../components/page'
 import { fetchPostDetails } from '../../../../../store/slices/posts/postsAsync';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
@@ -40,8 +40,7 @@ const page = ({post}) => {
            
             <div className=" bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-3 mb-3 text-[20px]">
               
-                  <RelatedPostCategoryId categoryId ={postDetails.categories[0].slug} postSlug={postSlug}/>
-               
+              <RelatedPostCategoryId categoryId ={postDetails.categories[0].slug} postSlug={postSlug}/>
               
             </div>
 
