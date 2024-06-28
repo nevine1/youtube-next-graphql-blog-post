@@ -39,7 +39,10 @@ const page = ({post}) => {
           <div className="lg:col-span-4 col-span-1  lg:sticky relative">
            
             <div className=" bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-3 mb-3 text-[20px]">
-              <RelatedPostCategoryId categoryId ={postDetails.categories[0].slug}/>
+              
+                  <RelatedPostCategoryId categoryId ={postDetails.categories[0].slug} postSlug={postSlug}/>
+               
+              
             </div>
 
             {/* <div className="bg-white p-3 pb-2 rounded-lg">

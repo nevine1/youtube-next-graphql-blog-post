@@ -6,7 +6,7 @@ import { getRelatedPostCategoryId} from '../utils/queries'
 import { useParams } from 'next/navigation'
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 
-const RelatedPostCategoryId = ({categoryId}) => {
+const RelatedPostCategoryId = ({categoryId, postSlug}) => {
   
   const [relPosts, setRelPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -55,10 +55,15 @@ const RelatedPostCategoryId = ({categoryId}) => {
         <p>Loading posts...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : (
-        relPosts.map((post) => (
-          <h2 key={post.id}>{post.slug}</h2>
-        ))
+      ) :  ( 
+        
+          relPosts.map((post) => (
+            postSlug !== post.slug && //this code to not display the post displayed in postDetails page 
+
+            <h2 key={post.id}>{post.slug}</h2>
+          ))
+       
+       
       )}
     </div>
   );
