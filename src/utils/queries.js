@@ -49,7 +49,7 @@ export const recentPosts = gql`
     `;
 
 export const getPostDetailsQuery = gql`
-    query PostDetails($slug: String) {
+   query PostDetails($slug: String!) {
         post(where: {slug: $slug}) {
             expert
             title
@@ -63,19 +63,18 @@ export const getPostDetailsQuery = gql`
             }
             createdAt
             categories {
-                id
-                slug
-                }
-
-            author {
-                id
-                name
-                bio
-                photo {
-                    url
-                }
-                }
+            id
+            slug
             }
+            author {
+            id
+            name
+            bio
+            photo {
+                url
+            }
+            }
+        }
         }
 `;
 
@@ -126,7 +125,7 @@ export const getAllComments = gql`
 `
 
 export const fetchCategoryPosts = gql`
-    query GetCategoryPosts($slug: String!){}{
+    query GetCategoryPosts($slug: String!){
     category(where: {slug: $slug}) {
         name
         slug

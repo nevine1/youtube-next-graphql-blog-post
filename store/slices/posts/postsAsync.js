@@ -27,12 +27,13 @@ export const fetchPostsList = () => async (dispatch) => {
     }
 };
 
-export const fetchPostDetails = (slug) => async (dispatch ) =>{
-    dispatch(setIsLoading(true));
+export const fetchPostDetails = (postSlug) => async (dispatch ) =>{
+    dispatch(setIsLoading());
     try{
 
-        const variables = {slug};
+        const variables = { slug: postSlug };
         const response = await request(graphqlAPI, getPostDetailsQuery, variables );
+        console.log(response);
         dispatch(getPostDetails(response.post));
         
     }catch(err){

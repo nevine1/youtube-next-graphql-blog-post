@@ -29,7 +29,7 @@ const CategoryPostCard = ({post, slug}) => {
                     </span>
                 </div>
               
-                <Link href={`/categories/${slug}/postDetails/${post.slug}`}>
+                <Link href={`/categories/${slug}/${post.slug}`}>
                     <span className="transition duration-400 transform hover:-translate-y-1 text-[16px]
                         inline-block bg-pink-500 text-white text-small rounded-full px-4 py-2"
                     >Continue Reading</span>
