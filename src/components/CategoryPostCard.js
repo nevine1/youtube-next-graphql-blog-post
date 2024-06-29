@@ -35,7 +35,7 @@ const CategoryPostCard = ({post, slug}) => {
                     >Continue Reading</span>
                 </Link>
                 <h2>number of comments {post.comments.length}</h2>
-                <Link href={`/posts/${post.slug}/comments`}>Show Comments </Link> 
+                <Link href={`/categories/${slug}/${post.slug}/comments`}>Show Comments </Link> 
            
             
         

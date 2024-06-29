@@ -1,3 +1,4 @@
+"use client"
 import {useState, useEffect} from 'react'
 import { getCategories } from '@/utils/queries'
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;

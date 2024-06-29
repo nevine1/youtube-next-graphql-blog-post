@@ -1,7 +1,9 @@
 "use client"
 import {useEffect } from 'react'
 import { useParams } from 'next/navigation';
-import { SinglePostDetails, CommentForm, Author, RelatedPostCategoryId } from '../../../../components/page'
+import { SinglePostDetails, PostComments,
+       CommentForm, Author, RelatedPostCategoryId } 
+        from '../../../../components/page'
 import { fetchPostDetails } from '../../../../../store/slices/posts/postsAsync';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
@@ -19,20 +21,18 @@ const page = ({post}) => {
   return (
     <>
       <div className="container mx-auto px-10 mb-8">
-      {/* {isLoading && <p>Loading post...</p>} 
-      {error && <p className="error">Error: {error}</p>}  */}
 
       {postDetails && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8 col-span-1 rounded">
             <div className=" rounded-lg p-0 lg:p-8 pb-12 mb-8">
-              
              
               <SinglePostDetails postDetails={postDetails} />
               <p className="text-lg">{postDetails.author.name}</p>
               <Author author={postDetails.author}/>
+             {/*  <PostComments comments={postDetails.comments} /> */}
               <CommentForm slug={postDetails.slug} author={postDetails.author}/>
-              {/* <Comments slug={postDetails.slug} /> */}
+             
             </div>
           </div>
           

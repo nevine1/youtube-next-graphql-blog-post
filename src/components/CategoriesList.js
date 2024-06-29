@@ -1,3 +1,4 @@
+"use client"
 import {useState, useEffect} from 'react'
 import { fetchCategories} from '../../store/slices/category/categoriesAsync'
 import { useDispatch, useSelector } from 'react-redux';

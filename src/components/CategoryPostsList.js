@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+"use client"
+import { useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategoryPostsList } from '../../store/slices/category/categoriesAsync';
 const CategoryPostsList = () => {

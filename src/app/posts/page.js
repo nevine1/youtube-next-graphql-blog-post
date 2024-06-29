@@ -32,6 +32,7 @@ const page = () => {
 
   return (
     <div className="container mx-auto px-10 mb-8">
+      
       {isLoading && <p>Loading posts...</p>} {/* Display loading state */}
       {error && <p className="error">Error: {error}</p>} {/* Display error message */}
       {posts.length > 0 && ( // Render posts only if fetched successfully

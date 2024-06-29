@@ -66,13 +66,19 @@ export const getPostDetailsQuery = gql`
             id
             slug
             }
-            author {
-            id
+            comments {
+            comment
             name
-            bio
-            photo {
-                url
+            id
+            createdAt
+            email
             }
+            author {
+                name
+                bio
+                photo {
+                    url
+                }
             }
         }
         }

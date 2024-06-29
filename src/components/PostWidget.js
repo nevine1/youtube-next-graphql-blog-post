@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+"use client"
+import { useEffect, useState} from 'react'
 import moment from 'moment'; // Assuming you're using moment.js for date formatting
 import Link from 'next/link';
 import { recentPosts, getCategories } from '../utils/queries'; // Assuming this imports your GraphQL query
@@ -50,6 +51,7 @@ const getRecentPosts = async () =>{
   return (
     <div className="bg-white rounded-lg mb-8 p-5">
       <h2 className="font-semibold border-b text-xl mb-8">Recent Posts</h2>
+      <h2>All postssssss</h2>
       {isLoading ? (
         <p>Loading posts...</p>
       ) : error ? (

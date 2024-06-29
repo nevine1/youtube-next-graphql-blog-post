@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 const graphAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
 
-const RelatedPostCategoryId = ({categoryId, postSlug}) => {
+const RelatedPostCategoryId = ({categoryId, postSlug, slug}) => {
   
   const [relPosts, setRelPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -60,18 +60,22 @@ const RelatedPostCategoryId = ({categoryId, postSlug}) => {
           <p>{error}</p>
         ) :  ( 
           
-          relPosts.map((post) => (
-            postSlug !== post.slug && //this code to not display the post displayed in postDetails page 
+          relPosts.map((post) => 
+            /* postSlug !== post.slug && */ //this code to not display the post displayed in postDetails page 
+            postSlug !== post.slug  && slug !== post.slug ? 
             
-              <div key={post.id} 
+              (<div key={post.id} 
                 className="bg-gray-100 mb-4 p-3 rounded-md border-red-950"
                    >
                 <Link href={`/posts/${post.slug}`}
                   className="font-semibold text-gray-600 hover:text-red-500 transition-all duration-200"
                   >{post.title}</Link>
-              </div>
+              </div> 
+              ): (
+                null
+              )
             
-          ))
+          )
        
       )}
     </div>
