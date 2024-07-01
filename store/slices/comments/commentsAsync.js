@@ -32,16 +32,28 @@ export const fetchPostComments = (postSlug) => async (dispatch) => {
     console.log('Fetching comments for slug:', postSlug); 
     try {
       const variables = { slug: postSlug };
-      
-      const response = await request(graphqlAPI, getPostComments, variables);
+      const query = `
+      query getPostCommentsQuery($slug: String!) {
+        post(where: {slug: $slug}) {
+            title
+            comments {
+            comment
+            name
+            email
+            createdAt
+            }
+        }
+        }
+      `;
+      const response = await request(graphqlAPI, GetPostComments, variables);
       console.log('GraphQL response:', response);
       
       if (response.errors) {
         throw new Error(response.errors[0].message);
       }
   
-      dispatch(getPostComments(response.data?.post?.comments));
-      console.log(response.data.post.comments);
+      dispatch(getPostComments(response.post.comments));
+      console.log('Comments dispatched:', response.data.post.comments);
     } catch (error) {
       dispatch(setError(error.message));
     } finally {

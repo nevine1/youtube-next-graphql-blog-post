@@ -175,6 +175,7 @@ export const GetPostComments = gql`
         post(where: {slug: $slug}) {
             title
             comments {
+            comment
             name
             email
             createdAt

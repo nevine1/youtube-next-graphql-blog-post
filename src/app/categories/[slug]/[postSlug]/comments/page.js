@@ -6,43 +6,42 @@ import { fetchPostComments } from '../../../../../../store/slices/comments/comme
 import { getPostComments , setIsLoading, setError} from '../../../../../../store/slices/comments/commentsSlice';
 
 
-const page = ({ slug, postSlug }) => {
+const page = () => {
+  const { slug, postSlug } = useParams();
     const dispatch = useDispatch();
-    const comments = useSelector((state) => state.comments.comments);
-    const isLoading = useSelector((state) => state.comments.isLoading);
-    const error = useSelector((state) => state.comments.error);
+    const { comments, isLoading, error } = useSelector((state) => state.comments);
+  console.log(postSlug)
   
-    useEffect(() => {
-      dispatch(setIsLoading(true));
+  useEffect(() => {
+    if (postSlug) {
+      console.log('Dispatching fetchPostComments with slug:', postSlug); // Debug log
+      dispatch(fetchPostComments(postSlug));
+    }
+  }, [dispatch, postSlug]);
   
-      const fetchData = async () => {
-        try {
-          await dispatch(getPostComments(postSlug));
-        } catch (error) {
-          dispatch(setError(error.message));
-        } finally {
-          dispatch(setIsLoading(false));
-        }
-      };
-  
-      fetchData();
-    }, [dispatch, postSlug]);
-  
-    if (isLoading) return <div>Loading comments...</div>;
-    if (error) return <div>Error fetching comments: {error.message}</div>;
-  
-    return (
-      <div>
-        <h2>Comments for {comments?.post?.title}</h2>
-        {/* Render comments here */}
-        {comments?.map((comment) => (
-          <div key={comment.id}>
-            {/* Display comment details like name, email, content, etc. */}
-          </div>
-        ))}
-      </div>
-    );
-  }
+
+  /* if (error) {
+    return <p>Error loading comments: {error}</p>;
+  } */
+
+  /* if (!comments || comments.length === 0) {
+    return <p>No comments found.</p>;
+  } */
+console.log(`comments`)
+console.log(comments)
+  return (
+    <div className="container mx-auto px-10 mb-8">
+      <h1>Comments for post: {postSlug}</h1>
+      {comments.map((comment) => (
+        <div key={comment.id} className="bg-white shadow-lg rounded-lg p-6 mb-4">
+          <p><strong>{comment.name}</strong> said:</p>
+          <p>{comment.comment}</p>
+          <p><em>Posted on: {new Date(comment.createdAt).toLocaleDateString()}</em></p>
+        </div>
+      ))}
+    </div>
+  );
+};
   
 
 export default page;
