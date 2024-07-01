@@ -39,13 +39,7 @@ const page = () => {
                 ))
               }
           </div>
-         {/*  <div className="lg:col-span-4 col-span-1 rounded">
-            <div className="lg:sticky relative top-8">
-              
-              <PostWidget />
-              
-            </div>
-          </div> */}
+        
         </div>
       )}
     </div>

@@ -168,9 +168,10 @@ export const getCategoryPostsQuery = gql`
     }
 `;
 
-export const getPostCommentsQuery = gql`
 
-    query PostComments(slug: String!) {
+
+export const GetPostComments = gql`
+    query getPostCommentsQuery($slug: String!) {
         post(where: {slug: $slug}) {
             title
             comments {
@@ -179,6 +180,5 @@ export const getPostCommentsQuery = gql`
             createdAt
             }
         }
-    }
-
-`;
+        }
+    `;

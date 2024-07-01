@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { Categories, PostCard, PostWidget, RelatedPostCategoryId, 
+import { PostCard, PostWidget, RelatedPostCategoryId, 
           Author, CommentForm, Comments, SinglePostDetails
         } from "../../../components/page";
 import { fetchPostDetails } from '../../../../store/slices/posts/postsAsync'

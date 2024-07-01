@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import moment from 'moment/moment';
 import { MdOutlineDateRange } from "react-icons/md";
+
 const CategoryPostCard = ({post, slug}) => {
     console.log(slug);
     console.log('here is the slug categoryyyyyyyyyyyyyyyyyyyyyyyy ')
@@ -29,13 +30,19 @@ const CategoryPostCard = ({post, slug}) => {
                     </span>
                 </div>
               
+                
                 <Link href={`/categories/${slug}/${post.slug}`}>
                     <span className="transition duration-400 transform hover:-translate-y-1 text-[16px]
                         inline-block bg-pink-500 text-white text-small rounded-full px-4 py-2"
                     >Continue Reading</span>
                 </Link>
-                <h2>number of comments {post.comments.length}</h2>
-                <Link href={`/categories/${slug}/${post.slug}/comments`}>Show Comments </Link> 
+                { console.log(`post slug is ${post.slug}` )}
+              
+                <p className="mb-4">number of comments {post.comments.length}</p>
+                
+                <Link href={`/categories/${slug}/${post.slug}/comments`}
+
+                >Show Comments </Link> 
            
             
         

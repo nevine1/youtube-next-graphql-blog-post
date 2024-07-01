@@ -2,7 +2,7 @@
 import {useEffect } from 'react'
 import { useParams } from 'next/navigation';
 import { SinglePostDetails, PostComments,
-       CommentForm, Author, RelatedPostCategoryId } 
+       CommentForm, Author, RelatedPostCategoryId} 
         from '../../../../components/page'
 import { fetchPostDetails } from '../../../../../store/slices/posts/postsAsync';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ const page = ({post}) => {
             dispatch(fetchPostDetails(postSlug))
         }
     }, [dispatch, postSlug])
-    console.log(postDetails)
+ 
   return (
     <>
       <div className="container mx-auto px-10 mb-8">
@@ -30,7 +30,7 @@ const page = ({post}) => {
               <SinglePostDetails postDetails={postDetails} />
               <p className="text-lg">{postDetails.author.name}</p>
               <Author author={postDetails.author}/>
-             {/*  <PostComments comments={postDetails.comments} /> */}
+              <PostComments comments={postDetails.comments} />
               <CommentForm slug={postDetails.slug} author={postDetails.author}/>
              
             </div>

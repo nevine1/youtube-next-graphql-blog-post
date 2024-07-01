@@ -26,6 +26,7 @@ const postsSlice = createSlice({
         },
         getPostDetails: (state, action) => {
             state.postDetails = action.payload;
+            state.isLoading = false; 
         }
     },
 });

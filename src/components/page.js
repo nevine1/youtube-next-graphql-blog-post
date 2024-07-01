@@ -8,7 +8,8 @@ export { default as CommentForm } from './CommentForm'
 export { default as SinglePostDetails } from './SinglePostDetails'
 export { default as CategoryPostsList } from './CategoryPostsList'
 export { default as CategoryPostCard } from './CategoryPostCard'
-export { default as Categories } from './Categories'
 export { default as AddCategoryForm } from './AddCategoryForm'
+export { default as PostComments } from './PostComments'
+export { default as CategoryPostComments } from './CategoryPostComments'
 
 

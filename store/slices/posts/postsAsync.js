@@ -31,14 +31,14 @@ export const fetchPostDetails = (postSlug) => async (dispatch ) =>{
     dispatch(setIsLoading());
     try{
 
-        const variables = { slug: postSlug };
+        const variables =  {slug: postSlug} ;
         const response = await request(graphqlAPI, getPostDetailsQuery, variables );
-        console.log(response.post);
-        dispatch(getPostDetails(response.post));
         
-    }catch(err){
-        console.log(err)
-    }finally{
-        dispatch(setIsLoading(false))
-    }
+        dispatch(getPostDetails(response.post));
+        console.log(response.post);
+    } catch (error) {
+        dispatch(setError(error.message));
+      } finally {
+        dispatch(setIsLoading());
+      }
 }
