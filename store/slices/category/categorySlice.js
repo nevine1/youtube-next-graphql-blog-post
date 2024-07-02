@@ -16,11 +16,15 @@ const categorySlice = createSlice({
             state.categories = action.payload;
             state.isLoading = false;
         }, 
+        addNewCategory: (state, action) =>{
+            state.categories.push(action.payload);
+            state.isLoading = false; 
+        },
         setError: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         },
     }
 })
-export const { setIsLoading, gettingCategoriesList, setError } = categorySlice.actions;
+export const { setIsLoading, gettingCategoriesList, setError, addNewCategory } = categorySlice.actions;
 export default categorySlice.reducer

@@ -16,7 +16,7 @@ const Header = () => {
   }, [categories]) */
   
   return (
-    <div className="container mx-auto px-10 mb-10">
+    <div className="container mx-auto px-10 mb-4">
       <div className="border-b w-full inline-block border-blue-450 py-10">
         <div className="md:float-left block">
           <Link href="/">

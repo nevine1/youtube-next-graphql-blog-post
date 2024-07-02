@@ -1,6 +1,7 @@
 import { setIsLoading , getPostComments, setError} from './commentsSlice'; 
 import { request } from 'graphql-request';
 import { GetPostComments} from '../../../src/utils/queries'
+import { addNewCategory} from '../../../src/utils/mutations'
 
 const graphqlAPI = process.env. NEXT_PUBLIC_BLOG_ENDPOINT ;
 
@@ -60,3 +61,5 @@ export const fetchPostComments = (postSlug) => async (dispatch) => {
       dispatch(setIsLoading(false));
     }
   };
+
+  export const addNewCategory

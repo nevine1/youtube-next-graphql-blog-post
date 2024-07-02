@@ -15,3 +15,16 @@ import { request, gql , GraphQLClient} from "graphql-request"
             }
           }
         `;
+        
+
+export const createCategoryQuery = gql`
+  mutation CreateCategory ( $name: String!, $slug: String!) {
+    createCategory(data: { name: $name, slug: $slug}) {
+      id
+      name
+      slug
+      price
+    }
+  }
+
+`;

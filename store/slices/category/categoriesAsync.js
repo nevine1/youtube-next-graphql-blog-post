@@ -1,5 +1,6 @@
-import { setIsLoading, gettingCategoriesList, setError} from './categorySlice'
-import { getCategoriesQuery, getCategoryPostsQuery } from '../../../src/utils/queries'
+import { setIsLoading, gettingCategoriesList, setError, addNewCategory} from './categorySlice'
+import { getCategoriesQuery, getCategoryPostsQuery} from '../../../src/utils/mutations'
+import { createCategoryQuery, createCategory } from '../../../src/utils/mutations'
 import { request } from 'graphql-request';
 import { gettingPosts } from '../posts/postsSlice'
 import { BiSolidBugAlt } from 'react-icons/bi';
@@ -47,69 +48,17 @@ export const fetchCategoryPosts = (slug) => async (dispatch) => {
     }
 };
 
-export const fetchCategoryPostsList22 = (slug) => async (dispatch) => {
-    dispatch(setIsLoading());
+export const addCategory = (name, slug ) => async ( dispatch ) =>{
+    dispatch(setIsLoading(true)); 
 
-    const variables = { slug };
-    try {
-        const requestedBody={ 
-            query: getCategoryPostsQuery, 
-            variables: { slug }
-        } 
-        const options = { 
-            method: "POST", 
-            headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify(requestedBody),
-        }
+    try{
+        variables = { name, slug }
+        const response = await request(graphqlAPI, createCategoryQuery, variables);
+        dispatch(addNewCategory(response.createCategory));
 
-        const response = await fetch( graphqlAPI, options);
-        //const response = await request(graphqlAPI, getCategoryPostsQuery, variables);
-        //console.log('Response:', response);
-    
-      
-       
-        dispatch(getPostsByCategorySuccess(response.category.posts));
-
-    } catch (error) {
-        dispatch(setError(error.message));
-    } finally {
-        dispatch(setIsLoading());
+    }catch(error){
+        setError(error.message)
     }
-};
-
-export const fetchCategoryPosts11111 = (slug) => async (dispatch) => {
-  const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT;
-  console.log(slug)
-  dispatch(setIsLoading());
-
-  const query = getCategoryPostsQuery;
-
-  const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ 
-          query,
-         variables: slug  
-        }),
-  };
-
-  try {
-    const response = await fetch(graphqlAPI, options);
-    const data = await response.json();
-    console.log(data.data.category)
-    dispatch(getPostsByCategorySuccess(data.data.category.posts));
-
-    /* if (!data.errors) {
-      dispatch(getPostsByCategorySuccess(data.data.category.posts));
-    } else {
-      const errorMessage = data.errors[0].message;
-      dispatch(setError(errorMessage));
-    } */
-  } catch (error) {
-    dispatch(setError(error.message));
-  } finally {
-    dispatch(setIsLoading());
-  }
-};
+}
 
 
