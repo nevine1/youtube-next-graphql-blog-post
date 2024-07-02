@@ -62,4 +62,3 @@ export const fetchPostComments = (postSlug) => async (dispatch) => {
     }
   };
 
-  export const addNewCategory
