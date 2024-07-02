@@ -3,7 +3,7 @@
 import { useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
 import { addCategory } from '../../store/slices/category/categoriesAsync'
-import { createCategoryQuery } from '../utils/mutations';
+
 
 
 const AddCategoryForm = () => {
@@ -17,7 +17,7 @@ const AddCategoryForm = () => {
     if(name == " " || slug == " ") {
       return <p>Name and slug field Can not be empty </p>
     }else{
-      dispatch(addNewCategory(name, slug));
+      dispatch(addCategory(name, slug));
       setName(' ');
       setSlug(' ');
     }
