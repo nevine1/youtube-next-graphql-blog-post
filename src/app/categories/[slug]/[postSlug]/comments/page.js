@@ -19,15 +19,7 @@ const page = () => {
       dispatch(fetchPostComments(postSlug));
     }
   }, [dispatch, postSlug]);
-  
-
-  /* if (error) {
-    return <p>Error loading comments: {error}</p>;
-  } */
-
-  /* if (!comments || comments.length === 0) {
-    return <p>No comments found.</p>;
-  } */
+ 
 console.log(`comments`)
 console.log(comments)
   return (

@@ -1,5 +1,5 @@
 import { setIsLoading, gettingCategoriesList, setError, addNewCategory} from './categorySlice'
-import { getCategoriesQuery, getCategoryPostsQuery} from '../../../src/utils/mutations'
+import { getCategoriesQuery, getCategoryPostsQuery} from '../../../src/utils/queries'
 import { createCategoryQuery, createCategory } from '../../../src/utils/mutations'
 import { request } from 'graphql-request';
 import { gettingPosts } from '../posts/postsSlice'
