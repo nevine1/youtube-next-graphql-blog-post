@@ -36,11 +36,15 @@ const page = () => {
 
   return (
     <div className="container mx-auto px-10 mb-8" style={{width: '70%'}}>
+      
       <div className="bg-white p-8 rounded-lg">
-        {
+        <h1 className="font-semibold text-[26px] p-4">All categories list</h1>
+        {categories.length> 0 && 
           categories.map((category) =>(
             <div key={category.id} className="bg-slate-100 p-6 mb-4 rounded-lg text-semibold text-[20px]">
-              <Link href={`/categories/${category.slug}`}>{category.name}</Link>
+              <Link href={`/categories/${category.slug}`}
+                className="cursor-pointer"
+              >{category.name}</Link>
             </div>
           ))
         }

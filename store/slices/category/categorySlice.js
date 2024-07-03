@@ -18,7 +18,7 @@ const categorySlice = createSlice({
         }, 
         addNewCategory: (state, action) =>{
             state.categories.push(action.payload);
-            state.isLoading = false; 
+            state.isLoading = false;
         },
         setError: (state, action) => {
             state.isLoading = false;

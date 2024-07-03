@@ -6,7 +6,7 @@ import { gettingPosts } from '../posts/postsSlice'
 
 const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT ;
 
-export const fetchCategories= () => async (dispatch) => {
+export const fetchCategories = () => async (dispatch) => {
     dispatch(setIsLoading(true));
     try {
         const response = await request(process.env.NEXT_PUBLIC_BLOG_ENDPOINT, getCategoriesQuery);
@@ -48,17 +48,36 @@ export const fetchCategoryPosts = (slug) => async (dispatch) => {
     }
 };
 
-export const addCategory = (name, slug ) => async ( dispatch ) =>{
+/* export const addCategory = (name, slug ) => async ( dispatch ) =>{
     dispatch(setIsLoading(true)); 
 
     try{
         variables = { name, slug }
         const response = await request(graphqlAPI, createCategoryQuery, variables);
+
         dispatch(addNewCategory(response.createCategory));
 
     }catch(error){
         setError(error.message)
     }
-}
+} */
 
+
+export const addCategory = (category) => async (dispatch) => {
+    dispatch(setIsLoading(true));
+    
+  
+    try {
+        
+      const variables = { name: category.name, slug: category.slug };
+      const response = await request(graphqlAPI, createCategoryQuery, variables);
+      dispatch(addNewCategory(response.createCategory));
+      dispatch(setIsLoading(false));
+
+    } catch (error) {
+
+      dispatch(setError(error.message));
+      dispatch(setIsLoading(false));
+    }
+  };
 

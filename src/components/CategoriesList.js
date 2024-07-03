@@ -16,14 +16,14 @@ const CategoriesList = () => {
     console.log(categories)
   }, [categories])
  
-  useEffect(() => {
+ /*  useEffect(() => {
     const storedCategories = localStorage.getItem('categories');
     if (storedCategories) {
         dispatch(setCategories(JSON.parse(storedCategories)));
     } else {
         dispatch(fetchCategories());
     }
-}, [dispatch]);
+}, [dispatch]); */
   useEffect(() => {
     if (categories.length > 0) {
         localStorage.setItem('categories', JSON.stringify(categories));
