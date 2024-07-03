@@ -1,9 +1,11 @@
 "use client"
+import { useEffect } from 'react';
 import { Inter } from "next/font/google";
 import "../styles/global.scss";
 import Header from '../components/Header'
 import  store  from '../../store/store'
 import { Provider } from 'react-redux'
+//import { logListeners } from '../../logListeners.mjs';
 const inter = Inter({ subsets: ["latin"] });
 
 /* export const metadata = {
@@ -12,6 +14,10 @@ const inter = Inter({ subsets: ["latin"] });
 }; */
 
 export default function RootLayout({ children }) {
+ 
+    /* useEffect(() => {
+      logListeners(process.stdin, 'data'); // Log listeners for 'data' event on stdin
+    }, []); */
   return (
     <html lang="en">
       <body className={inter.className}>
