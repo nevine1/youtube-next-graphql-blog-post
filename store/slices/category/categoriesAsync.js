@@ -3,7 +3,7 @@ import { getCategoriesQuery, getCategoryPostsQuery} from '../../../src/utils/que
 import { createCategoryQuery, createCategory } from '../../../src/utils/mutations'
 import { request } from 'graphql-request';
 import { gettingPosts } from '../posts/postsSlice'
-import { BiSolidBugAlt } from 'react-icons/bi';
+
 const graphqlAPI = process.env.NEXT_PUBLIC_BLOG_ENDPOINT ;
 
 export const fetchCategories= () => async (dispatch) => {
