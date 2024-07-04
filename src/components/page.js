@@ -11,5 +11,6 @@ export { default as CategoryPostCard } from './CategoryPostCard'
 export { default as AddCategoryForm } from './AddCategoryForm'
 export { default as PostComments } from './PostComments'
 export { default as CategoryPostComments } from './CategoryPostComments'
+export { default as Categories } from './Categories'
 
 

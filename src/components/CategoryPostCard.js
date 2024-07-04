@@ -8,7 +8,7 @@ const CategoryPostCard = ({post, slug}) => {
     console.log(slug);
     console.log('here is the slug categoryyyyyyyyyyyyyyyyyyyyyyyy ')
   return (
-    <div className="bg-white shadow-lg rounded-lg  mb-8 border-red-600 p-7">
+    <div className="bg-white shadow-lg rounded-lg  mb-5 border-red-600 p-7">
         <h1>This is the first post category {slug} </h1>
         <div className=" flex flex-col items-center ">
             <div className="pt-5">
@@ -32,20 +32,36 @@ const CategoryPostCard = ({post, slug}) => {
               
                 
                 <Link href={`/categories/${slug}/${post.slug}`}>
-                    <span className="transition duration-400 transform hover:-translate-y-1 text-[16px]
-                        inline-block bg-pink-500 text-white text-small rounded-full px-4 py-2"
+                    <span className="transition duration-400 transform hover:-translate-y-1 text-[15px]
+                        inline-block bg-pink-500 text-white text-small rounded-full px-4 py-2 mb-3"
                     >Continue Reading</span>
                 </Link>
-                { console.log(`post slug is ${post.slug}` )}
+               
               
-                <p className="mb-4">number of comments {post.comments.length}</p>
-                
-                <Link href={`/categories/${slug}/${post.slug}/comments`}
-
-                >Show Comments </Link> 
-           
-            
-        
+                <p className="mb-4"> 
+                    {
+                        post.comments.length == 0 ? (
+                            <span>No comments </span>
+                        ) :  (post.comments.length > 1 ) ? (
+                            <span>{post.comments.length} Comments </span>
+                        ) : (
+                            <span>{post.comments.length} Comment</span>
+                        )
+                    }
+                </p>
+                   
+             
+                { 
+                    post.comments.length > 0 ? (
+                     <Link href={`/categories/${slug}/${post.slug}/comments`}
+                        className="transition duration-400 transform hover:-translate-y-1 text-[15px]
+                        inline-block bg-pink-500 text-white text-small rounded-full px-4 py-2 mb-3"
+                        >Show Comments 
+                    </Link> 
+                    ) : (
+                        null
+                    )
+                }
         </div>
       </div>
   )

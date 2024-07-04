@@ -9,6 +9,7 @@ const AddCategoryForm = () => {
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
+  const [postSlug, setPostSlug] = useState('');
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   
@@ -54,7 +55,7 @@ const AddCategoryForm = () => {
           query: createCategoryQuery,
           variables: {
             name,
-            slug,
+            slug
           },
         }),
       });

@@ -2,7 +2,7 @@
 import { useEffect, useState} from 'react'
 import { createCommentQuery } from '../utils/mutations';
 
-const CommentForm = ({ slug }) => {
+const CommentForm = ({ slug, postSlug }) => {
   const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);

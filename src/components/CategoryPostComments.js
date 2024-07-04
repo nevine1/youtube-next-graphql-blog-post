@@ -1,18 +1,17 @@
 import React from 'react'
-
-const CategoryPostComments = ({comment}) => {
+import moment from 'moment'
+import CommentForm from './CommentForm'
+const CategoryPostComments = ({comment, postSlug, slug}) => {
 
   return (
     <div className="bg-gray-100 shadow-md rounded-lg   border-red-600 p-7">
         
-        <div className=" flex flex-col items-center ">
-          <p><strong>{comment.name}</strong> said:</p>
-          <p>{comment.comment}</p>
-          <p><em>Posted on: {new Date(comment.createdAt).toLocaleDateString()}</em></p>
-           
-            
-        
+        <div className="   ">
+          <p className="mb-3 text-[18px]">{comment.comment}</p>
+          <p className="text-gray-600 text-[13px]">Commented by: {comment.name}</p>
+          <p className="text-gray-600 text-[13px]"><em>Posted on: {moment(comment.createdAt).format("MMM DD, YYYY")}</em></p>
         </div>
+       {/*  <CommentForm postSlug={postSlug} slug={slug}/> */}
       </div>
   )
 }
